@@ -22,13 +22,13 @@ class WordsController < ApplicationController
 
     def verify
         @word = Word.find(params[:id])
-        @word.update(:attempts => (@word.attempts.presence || 0) + 1)
+        @word.update(:attempts => @word.attempts.presence + 1)
         
         if @word.word == params[:word] && @word.meaning == params[:meaning]
             flash[:notice] = "Bravo!"
             redirect_to learn_words_path
         else
-            @word.update(:mistakes => (@word.mistakes.presence || 0) + 1)
+            @word.update(:mistakes => @word.mistakes.presence + 1)
             flash[:alert] = "Ooops!"
             render :verify
         end
