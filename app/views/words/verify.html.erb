@@ -1,0 +1,38 @@
+<% if flash[:alert].present? %>
+<div class="alert alert-danger" role="alert">
+    <%= flash[:alert] %>
+</div>
+<% end %>
+
+<div class="form-group">
+    <label>Word</label>
+    <input type="text" class="form-control" value="<%= @word.word %>" />
+    <% if @word.word != params[:word] %>
+    <div class="text-danger" style="text-decoration: line-through">
+        <%= params[:word] %>
+    </div>
+    <% end %>
+</div>
+<div class="form-group">
+    <label>Meaning</label>
+    <input type="text" class="form-control" value="<%= @word.meaning %>" />
+    <% if @word.meaning != params[:meaning] %>
+    <div class="text-danger" style="text-decoration: line-through">
+        <%= params[:meaning] %>
+    </div>
+    <% end %>
+</div>
+<div class="form-group">
+    <label>Example</label>
+    <input type="text" class="form-control" value="<%= @word.example %>" />
+</div>
+<div class="form-group">
+    <label>Attempts</label>
+    <input type="text" class="form-control" value="<%= @word.attempts %>" />
+</div>
+<div class="form-group">
+    <label>Mistakes</label>
+    <input type="text" class="form-control" value="<%= @word.mistakes %>" />
+</div>
+
+<%= link_to 'Continue', learn_words_path, class: 'btn btn-info' %>

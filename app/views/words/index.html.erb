@@ -1,0 +1,20 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Word</th>
+            <th scope="col">Meaning</th>
+            <th scope="col">Example</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @words.each do |word| %>
+        <tr>
+            <th scope="row"><%= word.id %></th>
+            <td><%= word.word %></td>
+            <td><%= word.meaning %></td>
+            <td><%= word.example %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
