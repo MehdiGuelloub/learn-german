@@ -4,10 +4,16 @@
 </div>
 <% end %>
 
+<% if flash[:notice].present? %>
+<div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+</div>
+<% end %>
+
 <div class="form-group">
     <label>Word</label>
     <input type="text" class="form-control" value="<%= @word.word %>" />
-    <% if @word.word != params[:word] %>
+    <% if @word.word.downcase != params[:word].downcase %>
     <div class="text-danger" style="text-decoration: line-through">
         <%= params[:word] %>
     </div>
@@ -16,7 +22,7 @@
 <div class="form-group">
     <label>Meaning</label>
     <input type="text" class="form-control" value="<%= @word.meaning %>" />
-    <% if @word.meaning != params[:meaning] %>
+    <% if @word.meaning.downcase != params[:meaning].downcase %>
     <div class="text-danger" style="text-decoration: line-through">
         <%= params[:meaning] %>
     </div>
