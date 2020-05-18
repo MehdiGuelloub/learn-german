@@ -12,6 +12,8 @@ class WordsController < ApplicationController
         if @word.save
             flash[:notice] = "Word added successfully"
             redirect_to new_word_path
+        else
+            render :new
         end
     end
 

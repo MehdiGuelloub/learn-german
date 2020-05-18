@@ -1,3 +1,9 @@
+<% if @word&.errors&.any? %>
+<div class="alert alert-danger" role="alert">
+    <%= @word.errors.full_messages.to_sentence %>
+</div>
+<% end %>
+
 <% if flash[:notice].present? %>
 <div class="alert alert-success" role="alert">
     <%= flash[:notice] %>
@@ -7,11 +13,11 @@
 <%= form_for :word, url: words_path do |f| %>
 <div class="form-group">
     <%= f.label :word %>
-    <%= f.text_field :word, class: "form-control" %>
+    <%= f.text_field :word, class: "form-control", required: true %>
 </div>
 <div class="form-group">
     <%= f.label :meaning %>
-    <%= f.text_field :meaning, class: "form-control" %>
+    <%= f.text_field :meaning, class: "form-control", required: true %>
 </div>
 <div class="form-group">
     <%= f.label :example %>
