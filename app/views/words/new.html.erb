@@ -53,14 +53,27 @@
 </div>
 
 <script>
-    $("#check").click(function() {
-        const value = $("#word_word").val();
-        $.get(`https://linguee-api.herokuapp.com/api?q=${value}&src=de&dst=en`, function(data) {
-            const suggestions = data.exact_matches.map(function(obj) {
-                return `<li class="list-group-item">${obj.text}</li>`;
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+            }
+        });
+
+        $("#check").click(function(event) {
+            event.preventDefault();
+            const value = $("#word_word").val();
+            $.get(`https://linguee-api.herokuapp.com/api?q=${value}&src=de&dst=en`, function(data) {
+                if (data && data.exact_matches && data.exact_matches.length) {
+                    const suggestions = data.exact_matches.map(function(obj) {
+                        const className = `list-group-item ${obj.text === value ? 'text-success font-weight-bold' : ''}`;
+                        return `<li class="${className}">${obj.text}</li>`;
+                    });
+                    $("#suggestions").html(suggestions);
+                }
+                $('#myModal').modal('show');
             });
-            $("#suggestions").html(suggestions);
-            $('#myModal').modal('show');
         });
     });
 </script>
