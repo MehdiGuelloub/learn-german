@@ -6,6 +6,7 @@
 <div class='form-group'>
     <%= label_tag :meaning %>
     <%= text_field_tag :meaning, @translation == :en_de ? @word.meaning : '', class: 'form-control', required: true %>
+    <small id="notoverbs" class="form-text text-muted">You don't need to prefix verbs with "to" </small> 
 </div>
 <%= submit_tag 'Verify', class: 'btn btn-info' %>
 <% end %>

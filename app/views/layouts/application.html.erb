@@ -27,10 +27,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <%= link_to  "Add new words", new_word_path, class: 'nav-link' %>
+                    <%= link_to  "Words", words_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to  "New", new_word_path, class: 'nav-link' %>
                 </li>
                 <li class="nav-item">
                     <%= link_to  "Learn words", learn_words_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to  "Learn articles", learn_articles_words_path, class: 'nav-link' %>
                 </li>
             </ul>
             <span class="navbar-text">
@@ -40,7 +46,7 @@
     </nav>
 
 
-    <div class="container">
+    <div class="container pt-5">
         <%= yield %>
     </div>
 </body>

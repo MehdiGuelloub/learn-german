@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :words do
     collection do
       get 'learn'
+      get 'learn_articles'
     end
     member do
       get 'verify'

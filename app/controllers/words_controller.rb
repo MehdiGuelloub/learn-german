@@ -22,23 +22,37 @@ class WordsController < ApplicationController
         @translation = [:de_en, :en_de].sample
     end
 
+    def learn_articles
+        @word = Word.where.not(:article => 0).order(Arel.sql('RANDOM()')).first
+    end
+
     def verify
         @word = Word.find(params[:id])
-        @word.update(:attempts => @word.attempts + 1)
-        
-        if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
-            flash[:notice] = "Bravo!"
-            redirect_to learn_words_path
-        else
-            @word.update(:mistakes => @word.mistakes + 1)
-            flash[:alert] = "Ooops!"
-            render :verify
+
+        # Learning articles
+        if params[:article].present?
+            if @word.article == params[:article]
+                redirect_to learn_articles_words_path
+            else
+                render :verify
+            end
+        end
+
+        # Learning words
+        if params[:word].present? && params[:meaning].present?
+            @word.update(:attempts => @word.attempts + 1)
+            if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
+                redirect_to learn_words_path
+            else
+                @word.update(:mistakes => @word.mistakes + 1)
+                render :verify
+            end
         end
     end
 
     private
 
     def word_params
-        params.require(:word).permit(:word, :meaning, :example)
+        params.require(:word).permit(:word, :article, :meaning, :example)
     end
 end

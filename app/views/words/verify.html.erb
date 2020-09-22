@@ -1,44 +1,48 @@
-<% if flash[:alert].present? %>
-<div class="alert alert-danger" role="alert">
-    <%= flash[:alert] %>
-</div>
-<% end %>
-
-<% if flash[:notice].present? %>
-<div class="alert alert-success" role="alert">
-    <%= flash[:notice] %>
-</div>
+<% unless @word.article_none? %>  
+    <div class="form-group">
+        <label>Article</label>
+        <input type="text" class="form-control" value="<%= @word.article %>" />
+        <% if @word.article != params[:article] %>
+        <div class="text-danger" style="text-decoration: line-through">
+            <%= params[:article] %>
+        </div>
+        <% end %>
+    </div>
 <% end %>
 
 <div class="form-group">
     <label>Word</label>
     <input type="text" class="form-control" value="<%= @word.word %>" />
-    <% if @word.word.downcase != params[:word].downcase %>
+    <% if @word.word.downcase != params[:word]&.downcase %>
     <div class="text-danger" style="text-decoration: line-through">
         <%= params[:word] %>
     </div>
     <% end %>
 </div>
+
 <div class="form-group">
     <label>Meaning</label>
     <input type="text" class="form-control" value="<%= @word.meaning %>" />
-    <% if @word.meaning.downcase != params[:meaning].downcase %>
+    <% if @word.meaning.downcase != params[:meaning]&.downcase %>
     <div class="text-danger" style="text-decoration: line-through">
         <%= params[:meaning] %>
     </div>
     <% end %>
 </div>
+
 <div class="form-group">
     <label>Example</label>
     <input type="text" class="form-control" value="<%= @word.example %>" />
 </div>
+
 <div class="form-group">
     <label>Attempts</label>
     <input type="text" class="form-control" value="<%= @word.attempts %>" />
 </div>
+
 <div class="form-group">
     <label>Mistakes</label>
     <input type="text" class="form-control" value="<%= @word.mistakes %>" />
 </div>
 
-<%= link_to 'Continue', learn_words_path, class: 'btn btn-info' %>
+<%= link_to 'Continue', params[:article].present? ? learn_articles_words_path : learn_words_path, class: 'btn btn-info' %>
