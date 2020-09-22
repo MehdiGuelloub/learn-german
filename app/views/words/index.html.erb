@@ -9,7 +9,7 @@
     <tbody>
         <% @words.each do |word| %>
         <tr>
-            <% article = word.article_none? ? "" : "#{word.article} "%>
+            <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
             <td><%= "#{article}#{word.word}" %></td>
             <td><%= word.meaning %></td>
             <td><%= word.example %></td>
