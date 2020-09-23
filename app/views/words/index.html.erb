@@ -16,7 +16,7 @@
             <% mistakes_rate = word.mistakes.to_f/word.attempts.to_f * 100 %>
             <td class="<%= mistakes_rate > 10 ? "text-danger" : "text-success" %>">
                 <strong>
-                    <%= word.attempts > 0 ? number_to_percentage(mistakes_rate, precision: 0) : 0 %>
+                    <%= number_to_percentage(word.attempts > 0 ? mistakes_rate : 0, precision: 0) %>
                 </strong>
             </td>
             <td>
