@@ -13,7 +13,7 @@
 <%= form_for :word, url: words_path do |f| %>
 <div class="form-group">
     <%= f.label :article %>
-    <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key, key] }), {}, class: "form-control" %>
+    <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key, key] }), { include_blank: true }, class: "form-control", required: true %>
 </div>
 <div class="form-group">
     <%= f.label :word %>
@@ -68,7 +68,24 @@
                 if (data && data.exact_matches && data.exact_matches.length) {
                     const suggestions = data.exact_matches.map(function(obj) {
                         const className = `list-group-item ${obj.text === value ? 'text-success font-weight-bold' : ''}`;
-                        return `<li class="${className}">${obj.text}</li>`;
+                        let article;
+
+                        switch (obj.word_type.gender) {
+                            case "feminine":
+                                article = "die - "
+                                break;
+                            case "neuter ":
+                                article = "das - "
+                                break;
+                            case "masculine":
+                                article = "der - "
+                                break;
+                            default:
+                                article = ""
+                                break;
+                        }
+
+                        return `<li class="${className}">${article}${obj.text}</li>`;
                     });
                     $("#suggestions").html(suggestions);
                 }
