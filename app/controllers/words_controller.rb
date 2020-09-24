@@ -28,19 +28,20 @@ class WordsController < ApplicationController
 
     def verify
         @word = Word.find(params[:id])
+        @word.update(:attempts => @word.attempts + 1)
 
         # Learning articles
         if params[:article].present?
             if @word.article == params[:article]
                 redirect_to learn_articles_words_path
             else
+                @word.update(:mistakes => @word.mistakes + 1)
                 render :verify
             end
         end
 
         # Learning words
         if params[:word].present? && params[:meaning].present?
-            @word.update(:attempts => @word.attempts + 1)
             if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
                 redirect_to learn_words_path
             else
