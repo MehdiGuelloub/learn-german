@@ -1,3 +1,5 @@
+<%= select_tag :translation, options_for_select([nil, :de_en, :en_de], params[:translation]), {class: "form-control", :onchange => "window.location.assign(`learn?translation=${this.value}`)" } %>
+
 <%= form_tag verify_word_path(@word), method: :get do %>
 <div class='form-group'>
     <%= label_tag :word %>

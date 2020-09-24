@@ -19,7 +19,7 @@ class WordsController < ApplicationController
 
     def learn
         @word = Word.order(Arel.sql('RANDOM()')).first
-        @translation = [:de_en, :en_de].sample
+        @translation = params[:translation]&.to_sym.presence || [:de_en, :en_de].sample
     end
 
     def learn_articles
