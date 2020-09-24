@@ -45,4 +45,4 @@
     <input type="text" class="form-control" value="<%= @word.mistakes %>" />
 </div>
 
-<%= link_to 'Continue', params[:article].present? ? learn_articles_words_path : learn_words_path, class: 'btn btn-info' %>
+<%= link_to 'Continue', params[:article].present? ? learn_articles_words_path : learn_words_path(translation: params[:translation]), class: 'btn btn-info' %>

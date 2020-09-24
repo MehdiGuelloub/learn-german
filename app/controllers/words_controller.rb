@@ -43,7 +43,7 @@ class WordsController < ApplicationController
         # Learning words
         if params[:word].present? && params[:meaning].present?
             if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
-                redirect_to learn_words_path
+                redirect_back :fallback_location => learn_words_path
             else
                 @word.update(:mistakes => @word.mistakes + 1)
                 render :verify
