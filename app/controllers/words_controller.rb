@@ -57,7 +57,7 @@ class WordsController < ApplicationController
 
         # Learning words
         if params[:word].present? && params[:meaning].present?
-            if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
+            if @word.word.downcase == normalize_input(params[:word]) && @word.meaning.downcase == normalize_input(params[:meaning])
                 @word.update(:consecutive_correct_answers => @word.consecutive_correct_answers + 1)
                 redirect_back :fallback_location => learn_words_path
             else
@@ -81,5 +81,9 @@ class WordsController < ApplicationController
 
     def set_word
         @word = Word.find(params[:id])
+    end
+
+    def normalize_input(value)
+        value.downcase.gsub(/[^0-9a-z ]/i, '')
     end
 end
