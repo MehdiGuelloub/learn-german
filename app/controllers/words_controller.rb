@@ -37,6 +37,7 @@ class WordsController < ApplicationController
                 redirect_to learn_articles_words_path
             else
                 @word.update(:mistakes => @word.mistakes + 1)
+                @word.update(:consecutive_correct_answers => 0)
                 render :verify
             end
         end
@@ -48,6 +49,7 @@ class WordsController < ApplicationController
                 redirect_back :fallback_location => learn_words_path
             else
                 @word.update(:mistakes => @word.mistakes + 1)
+                @word.update(:consecutive_correct_answers => 0)
                 render :verify
             end
         end
