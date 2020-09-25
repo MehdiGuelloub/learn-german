@@ -1,12 +1,29 @@
-<p><%= "You have #{@words.count} words in total" %></p>
+<ul class="list-group pb-5">
+    <li class="list-group-item">
+        <p><%= "You have #{@words.count} words in total" %></p>
+    </li>
+    <li class="list-group-item">
+        <p>Most attempted words:</p>
+        <pre>
+            <%= @words.most_attempted.map(&:word).join(", ") %>
+        </pre>
+    </li>
+    <li class="list-group-item">
+        <p>Never attempted words:</p>
+        <pre>
+            <%= @words.never_attempted.map(&:word).join(", ") %>
+        </pre>
+    </li>
+</ul>
 
-<table class="table">
+<table class="table small">
     <thead class="thead-dark">
         <tr>
-            <th scope="col"><small>Word</small></th>
-            <th scope="col"><small>Meaning</small></th>
-            <th scope="col"><small>Mistakes</small></th>
-            <th scope="col"><small>Consecutive</small></th>
+            <th scope="col">Word</th>
+            <th scope="col">Meaning</th>
+            <th scope="col">Stats</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Consecutive</th>
             <th></th>
             <th></th>
         </tr>
@@ -17,6 +34,7 @@
             <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
             <td><%= "#{article}#{word.word}" %></td>
             <td><%= word.meaning %></td>
+            <td><%= "#{word.mistakes}/#{word.attempts}" %></td>
             <% mistakes_rate = word.mistakes.to_f/word.attempts.to_f * 100 %>
             <td class="<%= mistakes_rate < 10 ? "text-success" : "text-danger" %>">
                 <strong>
@@ -26,12 +44,12 @@
             </td>
             <td><%= word.consecutive_correct_answers %></td>
             <td>
-                <%= link_to edit_word_path(word), class: 'btn btn-link' do %>
+                <%= link_to edit_word_path(word), class: "btn btn-link" do %>
                     <small>Edit</small>
                 <% end %>
             </td>
             <td>
-                <%= button_to word_path(word), method: :delete, class: 'btn btn-link text-danger' do %>
+                <%= button_to word_path(word), method: :delete, class: "btn btn-link text-danger" do %>
                     <small>Delete</small>
                 <% end %>
             </td>
@@ -39,3 +57,5 @@
         <% end %>
     </tbody>
 </table>
+
+<%= paginate @words%>

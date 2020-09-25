@@ -13,14 +13,14 @@
 <%= form_for word do |f| %>
     <div class="form-group">
         <%= f.label :article %>
-        <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key, key] }, word.article), { include_blank: true }, class: "form-control", required: true %>
+        <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key, key] }, word.new_record? ? nil : word.article), { include_blank: true }, class: "form-control", required: true %>
     </div>
     <div class="form-group">
         <%= f.label :word %>
         <div class="input-group mb-3">
             <%= f.text_field :word, class: "form-control", required: true %>
             <div class="input-group-append">
-                <button class="btn btn-primary" id="check">Check</button>
+                <a href class="btn btn-primary" id="check">Check</a>
             </div>
         </div>
     </div>
@@ -54,13 +54,6 @@
 
 <script>
     $(document).ready(function() {
-        $(window).keydown(function(event){
-            if(event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-            }
-        });
-
         $("#check").click(function(event) {
             event.preventDefault();
             const value = $("#word_word").val();

@@ -3,6 +3,7 @@ class WordsController < ApplicationController
 
     def index
         @words = Word.order(created_at: :DESC)
+        @words = @words.page(params[:page]).per(per_page)
     end
 
     def new
@@ -82,4 +83,9 @@ class WordsController < ApplicationController
     def set_word
         @word = Word.find(params[:id])
     end
+
+    def per_page
+        per = Integer(params[:per]) rescue 25
+        [per, 250].min
+      end
 end

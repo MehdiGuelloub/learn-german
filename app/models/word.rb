@@ -9,6 +9,9 @@ class Word < ApplicationRecord
         'das' => 3,
     }, _prefix: true
 
+    scope :most_attempted, -> { where(attempts: maximum(:attempts)) }
+    scope :never_attempted, -> { where(attempts: 0) }
+
     private
 
     def parse_words_and_meanings

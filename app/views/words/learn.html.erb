@@ -3,7 +3,7 @@
 
     <div class='form-group'>
         <%= label_tag :word %>
-        <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true %>
+        <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off' %>
         <% if @word.notes.present? %>
             <a class="form-text text-muted" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <small>Show notes</small> 
@@ -18,7 +18,7 @@
 
     <div class='form-group'>
         <%= label_tag :meaning %>
-        <%= text_field_tag :meaning, @translation == :en_de ? @word.meaning : '', class: 'form-control', required: true %>
+        <%= text_field_tag :meaning, @translation == :en_de ? @word.meaning : '', class: 'form-control', required: true, autocomplete: 'off' %>
         <small id="notoverbs" class="form-text text-muted">You don't need to prefix verbs with "to" </small> 
     </div>
     <%= submit_tag 'Verify', class: 'btn btn-info' %>
