@@ -3,6 +3,14 @@ class WordsController < ApplicationController
 
     def index
         @words = Word.order(created_at: :DESC)
+
+        # Heavy but should be used rarely
+        if params[:sort_by_mistakes_rate].present?
+            direction = params[:direction] == 'DESC' ? -1 : 1
+            @words = @words.sort_by { |word| word.mistakes_rate * direction }
+            @words = Kaminari.paginate_array(@words)
+        end
+
         @words = @words.page(params[:page]).per(per_page)
     end
 

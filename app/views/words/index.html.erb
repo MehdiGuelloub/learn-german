@@ -9,8 +9,10 @@
         <tr>
             <th scope="col">Word</th>
             <th scope="col">Meaning</th>
-            <th scope="col">Stats</th>
-            <th scope="col">Rate</th>
+            <th scope="col">Errors</th>
+            <th scope="col">
+                <%= link_to "Rate", words_path(sort_by_mistakes_rate: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
+            </th>
             <th scope="col">Consecutive</th>
             <th></th>
             <th></th>
@@ -23,11 +25,9 @@
             <td><%= "#{article}#{word.word}" %></td>
             <td><%= word.meaning %></td>
             <td><%= "#{word.mistakes}/#{word.attempts}" %></td>
-            <% mistakes_rate = word.mistakes.to_f/word.attempts.to_f * 100 %>
-            <td class="<%= mistakes_rate < 10 ? "text-success" : "text-danger" %>">
+            <td class="<%= word.mistakes_rate < 10 ? "text-success" : "text-danger" %>">
                 <strong>
-                    <%# if no attemps we consider the mistake rate is total 100% %>
-                    <%= number_to_percentage(word.attempts > 0 ? mistakes_rate : 100, precision: 0) %>
+                    <%= number_to_percentage(word.mistakes_rate, precision: 0) %>
                 </strong>
             </td>
             <td><%= word.consecutive_correct_answers %></td>
