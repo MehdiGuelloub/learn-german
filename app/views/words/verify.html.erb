@@ -1,4 +1,4 @@
-<% unless @word.article_none? %>  
+<% unless @word.article_none? %>
     <div class="form-group">
         <label>Article</label>
         <input type="text" class="form-control" value="<%= @word.article %>" />
@@ -44,5 +44,27 @@
     <label>Mistakes</label>
     <input type="text" class="form-control" value="<%= @word.mistakes %>" />
 </div>
+
+<div class="form-group">
+    <label>Consecutive Correct Answers</label>
+    <input type="text" class="form-control" value="<%= @word.consecutive_correct_answers %>" />
+</div>
+
+<% unless @word.article_none? %>
+    <div class="form-group">
+        <label>Article attempts</label>
+        <input type="text" class="form-control" value="<%= @word.article_attempts %>" />
+    </div>
+
+    <div class="form-group">
+        <label>Article aistakes</label>
+        <input type="text" class="form-control" value="<%= @word.article_mistakes %>" />
+    </div>
+
+    <div class="form-group">
+        <label>Article aonsecutive Correct Answers</label>
+        <input type="text" class="form-control" value="<%= @word.article_consecutive_correct_answers %>" />
+    </div>
+<% end %>
 
 <%= link_to 'Continue', params[:article].present? ? learn_articles_words_path : learn_words_path(translation: params[:translation]), class: 'btn btn-info' %>
