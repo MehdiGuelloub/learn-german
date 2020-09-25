@@ -22,7 +22,12 @@
         <% @words.each do |word| %>
         <tr>
             <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
-            <td><%= "#{article}#{word.word}" %></td>
+            <td class="d-flex align-items-center">
+                <%= "#{article}#{word.word}" %>
+                <% if word.attempts == 0 %>
+                  <%= image_tag "new.png" %>
+                <% end %>
+            </td>
             <td><%= word.meaning %></td>
             <td><%= "#{word.mistakes}/#{word.attempts}" %></td>
             <td class="<%= word.mistakes_rate < 10 ? "text-success" : "text-danger" %>">
