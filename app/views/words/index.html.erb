@@ -1,18 +1,6 @@
-<ul class="list-group pb-5">
+<ul class="list-group pb-3">
     <li class="list-group-item">
         <p><%= "You have #{@words.count} words in total" %></p>
-    </li>
-    <li class="list-group-item">
-        <p>Most attempted words:</p>
-        <pre>
-            <%= @words.most_attempted.map(&:word).join(", ") %>
-        </pre>
-    </li>
-    <li class="list-group-item">
-        <p>Never attempted words:</p>
-        <pre>
-            <%= @words.never_attempted.map(&:word).join(", ") %>
-        </pre>
     </li>
 </ul>
 

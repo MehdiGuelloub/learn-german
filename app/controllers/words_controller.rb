@@ -85,7 +85,7 @@ class WordsController < ApplicationController
     end
 
     def per_page
-        per = Integer(params[:per]) rescue 25
+        per = Integer(params[:per]) rescue 100
         [per, 250].min
-      end
+    end
 end
