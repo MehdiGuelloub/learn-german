@@ -18,9 +18,10 @@
             <td><%= "#{article}#{word.word}" %></td>
             <td><%= word.meaning %></td>
             <% mistakes_rate = word.mistakes.to_f/word.attempts.to_f * 100 %>
-            <td class="<%= mistakes_rate > 10 ? "text-danger" : "text-success" %>">
+            <td class="<%= mistakes_rate < 10 ? "text-success" : "text-danger" %>">
                 <strong>
-                    <%= number_to_percentage(word.attempts > 0 ? mistakes_rate : 0, precision: 0) %>
+                    <%# if no attemps we consider the mistake rate is total 100% %>
+                    <%= number_to_percentage(word.attempts > 0 ? mistakes_rate : 100, precision: 0) %>
                 </strong>
             </td>
             <td><%= word.consecutive_correct_answers %></td>
