@@ -8,6 +8,7 @@
             <th scope="col"><small>Mistakes</small></th>
             <th scope="col"><small>Consecutive</small></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -24,8 +25,13 @@
             </td>
             <td><%= word.consecutive_correct_answers %></td>
             <td>
-                <%= button_to word_path(word), method: :delete, class: 'btn btn-danger' do %>
-                    <span aria-hidden="true">&times;</span>
+                <%= link_to edit_word_path(word), class: 'btn btn-link' do %>
+                    <small>Edit</small>
+                <% end %>
+            </td>
+            <td>
+                <%= button_to word_path(word), method: :delete, class: 'btn btn-link text-danger' do %>
+                    <small>Delete</small>
                 <% end %>
             </td>
         </tr>

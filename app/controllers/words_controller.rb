@@ -1,10 +1,12 @@
 class WordsController < ApplicationController
+    before_action :set_word, only: %i(edit update destroy verify)
 
     def index
-        @words = Word.all
+        @words = Word.order(created_at: :DESC)
     end
 
     def new
+        @word = Word.new
     end
 
     def create
@@ -14,6 +16,18 @@ class WordsController < ApplicationController
             redirect_to new_word_path
         else
             render :new
+        end
+    end
+
+    def edit
+    end
+
+    def update
+        if @word.update(word_params)
+            flash[:notice] = "Word updated successfully"
+            redirect_to words_path
+        else
+            render :edit
         end
     end
 
@@ -27,7 +41,6 @@ class WordsController < ApplicationController
     end
 
     def verify
-        @word = Word.find(params[:id])
         @word.update(:attempts => @word.attempts + 1)
 
         # Learning articles
@@ -56,7 +69,6 @@ class WordsController < ApplicationController
     end
 
     def destroy
-        @word = Word.find(params[:id])
         @word.destroy
         redirect_to words_path
     end
@@ -65,5 +77,9 @@ class WordsController < ApplicationController
 
     def word_params
         params.require(:word).permit(:word, :article, :meaning, :notes)
+    end
+
+    def set_word
+        @word = Word.find(params[:id])
     end
 end
