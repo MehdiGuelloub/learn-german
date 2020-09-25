@@ -3,9 +3,10 @@
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Word</th>
-            <th scope="col">Meaning</th>
-            <th scope="col">Mistakes</th>
+            <th scope="col"><small>Word</small></th>
+            <th scope="col"><small>Meaning</small></th>
+            <th scope="col"><small>Mistakes</small></th>
+            <th scope="col"><small>Consecutive</small></th>
             <th></th>
         </tr>
     </thead>
@@ -21,6 +22,7 @@
                     <%= number_to_percentage(word.attempts > 0 ? mistakes_rate : 0, precision: 0) %>
                 </strong>
             </td>
+            <td><%= word.consecutive_correct_answers %></td>
             <td>
                 <%= button_to word_path(word), method: :delete, class: 'btn btn-danger' do %>
                     <span aria-hidden="true">&times;</span>

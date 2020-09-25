@@ -33,6 +33,7 @@ class WordsController < ApplicationController
         # Learning articles
         if params[:article].present?
             if @word.article == params[:article]
+                @word.update(:consecutive_correct_answers => @word.consecutive_correct_answers + 1)
                 redirect_to learn_articles_words_path
             else
                 @word.update(:mistakes => @word.mistakes + 1)
@@ -43,6 +44,7 @@ class WordsController < ApplicationController
         # Learning words
         if params[:word].present? && params[:meaning].present?
             if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
+                @word.update(:consecutive_correct_answers => @word.consecutive_correct_answers + 1)
                 redirect_back :fallback_location => learn_words_path
             else
                 @word.update(:mistakes => @word.mistakes + 1)
@@ -60,6 +62,6 @@ class WordsController < ApplicationController
     private
 
     def word_params
-        params.require(:word).permit(:word, :article, :meaning, :example)
+        params.require(:word).permit(:word, :article, :meaning, :notes)
     end
 end

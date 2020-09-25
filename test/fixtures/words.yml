@@ -3,13 +3,13 @@
 one:
   word: MyString
   meaning: MyString
-  example: MyString
+  notes: MyString
   attempts: 1
   mistakes: 1
 
 two:
   word: MyString
   meaning: MyString
-  example: MyString
+  notes: MyString
   attempts: 1
   mistakes: 1
