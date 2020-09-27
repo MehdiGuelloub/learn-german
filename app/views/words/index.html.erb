@@ -13,7 +13,9 @@
             <th scope="col">
                 <%= link_to "Rate", words_path(sort_by_mistakes_rate: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
             </th>
-            <th scope="col">Consecutive</th>
+            <th scope="col">
+                <%= link_to "Consecutive", words_path(sort_by_streak: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
+            </th>
             <th></th>
             <th></th>
         </tr>

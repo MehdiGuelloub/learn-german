@@ -2,7 +2,7 @@ class WordsController < ApplicationController
     before_action :set_word, only: %i(edit update destroy verify)
 
     def index
-        @words = Word.order(created_at: :DESC)
+        @words = Word.all
 
         # Heavy but should be used rarely
         if params[:sort_by_mistakes_rate].present?
@@ -11,6 +11,8 @@ class WordsController < ApplicationController
             @words = Kaminari.paginate_array(@words)
         end
 
+        
+        @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak]
         @words = @words.page(params[:page]).per(per_page)
     end
 
