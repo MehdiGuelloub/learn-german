@@ -11,7 +11,7 @@ class WordsController < ApplicationController
             @words = Kaminari.paginate_array(@words)
         end
 
-        
+        @words = @words.search(params[:search_term]) if params[:search_term].present?
         @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak]
         @words = @words.page(params[:page]).per(per_page)
     end
