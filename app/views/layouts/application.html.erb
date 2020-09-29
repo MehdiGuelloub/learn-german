@@ -45,7 +45,7 @@
                         <%= link_to "German to English translation", learn_words_path(translation: :de_en), class: 'nav-link' %>
                         <%= link_to "English to German translation", learn_words_path(translation: :en_de), class: 'nav-link' %>
                         <div class="dropdown-item form-check">
-                            <%= check_box_tag nil, nil, params[:filter_learned] == "true", id: "exampleCheck1", class: "form-check-input", :onchange => "window.location.assign(`learn?filter_learned=${this.checked}`)" %>
+                            <%= check_box_tag nil, nil, params[:filter_learned] == "true", id: "exampleCheck1", class: "form-check-input", :onchange => "window.location.assign(`/words/learn?filter_learned=${this.checked}`)" %>
                             <label class="form-check-label" for="exampleCheck1">Filter out learned</label>
                         </div>
                     </div>
