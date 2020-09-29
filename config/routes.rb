@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
 
+  resources :practices, only: :index
   resources :words do
     collection do
       get 'learn'

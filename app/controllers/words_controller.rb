@@ -72,6 +72,7 @@ class WordsController < ApplicationController
 
         # Learning words
         if params[:word].present? && params[:meaning].present?
+            increment_daily_practice
             if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
                 @word.update(
                     :attempts => @word.attempts + 1,
@@ -107,5 +108,11 @@ class WordsController < ApplicationController
     def per_page
         per = Integer(params[:per]) rescue 100
         [per, 250].min
+    end
+
+    def increment_daily_practice
+        practice = Practice.find_or_initialize_by(date: Date.today)
+        practice.increment(:number_of_practiced_words_per_day)
+        practice.save!
     end
 end

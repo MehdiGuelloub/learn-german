@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_25_201859) do
+ActiveRecord::Schema.define(version: 2020_09_29_223000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "practices", force: :cascade do |t|
+    t.integer "number_of_practiced_words_per_day", default: 0, null: false
+    t.date "date", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "words", force: :cascade do |t|
     t.string "word", null: false
