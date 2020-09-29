@@ -43,7 +43,17 @@ class WordsController < ApplicationController
     end
 
     def learn
-        @word = Word.order(Arel.sql('RANDOM()')).first
+        words = Word.order(Arel.sql('RANDOM()'))
+
+        if params[:filter_learned] == "true" && 
+            if Word.maximum(:consecutive_correct_answers) > 10
+                words = Word.where("consecutive_correct_answers > ?", 10)
+            else
+                flash.now[:warning] = "You don't have any learned word yet!"
+            end
+        end
+
+        @word = words.first
         @translation = params[:translation]&.to_sym.presence || [:de_en, :en_de].sample
     end
 

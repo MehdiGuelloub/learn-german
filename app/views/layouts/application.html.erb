@@ -25,7 +25,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav w-100">
                 <li class="nav-item">
                     <%= link_to "Stats", words_path, class: 'nav-link' %>
                 </li>
@@ -37,6 +37,18 @@
                 </li>
                 <li class="nav-item">
                     <%= link_to "Learn articles", learn_articles_words_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item dropdown ml-auto">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <%= link_to "Random translation", learn_words_path, class: 'nav-link' %>
+                        <%= link_to "German to English translation", learn_words_path(translation: :de_en), class: 'nav-link' %>
+                        <%= link_to "English to German translation", learn_words_path(translation: :en_de), class: 'nav-link' %>
+                        <div class="dropdown-item form-check">
+                            <%= check_box_tag nil, nil, params[:filter_learned] == "true", id: "exampleCheck1", class: "form-check-input", :onchange => "window.location.assign(`learn?filter_learned=${this.checked}`)" %>
+                            <label class="form-check-label" for="exampleCheck1">Filter out learned</label>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>

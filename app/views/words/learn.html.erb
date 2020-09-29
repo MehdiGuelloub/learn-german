@@ -1,3 +1,9 @@
+<% if flash[:warning].present? %>
+    <div class="alert alert-warning" role="alert">
+        <%= flash[:warning] %>
+    </div>
+<% end %>
+
 <%= form_tag verify_word_path(@word), method: :get do %>
     <%= hidden_field_tag :translation, params[:translation] %>
 
@@ -23,7 +29,3 @@
     </div>
     <%= submit_tag 'Verify', class: 'btn btn-info' %>
 <% end %>
-
-<div class="position-absolute fixed-bottom">
-    <%= select_tag :translation, options_for_select([['random', nil], ['learn EN', :de_en], ['learn DE', :en_de]], params[:translation]), {:onchange => "window.location.assign(`learn?translation=${this.value}`)" } %>
-</div>
