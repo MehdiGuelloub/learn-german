@@ -44,7 +44,7 @@ class WordsController < ApplicationController
 
     def learn
         words = Word.order(Arel.sql('RANDOM()'))
-        words = Word.where("consecutive_correct_answers < ?", 10) if params[:filter_learned] == "true"
+        words = words.where("consecutive_correct_answers < ?", 10) if params[:filter_learned] == "true"
         @word = words.first
         @translation = params[:translation]&.to_sym.presence || [:de_en, :en_de].sample
     end
