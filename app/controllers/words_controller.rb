@@ -53,6 +53,10 @@ class WordsController < ApplicationController
         @word = Word.where.not(:article => 0).order(Arel.sql('RANDOM()')).first
     end
 
+    def history
+        @word_count_groups = Word.order('DATE(created_at) DESC').group('DATE(created_at)').count
+    end
+
     def verify
         # Learning articles
         if params[:article].present?

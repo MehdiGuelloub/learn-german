@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get 'learn'
       get 'learn_articles'
+      get 'history'
     end
     member do
       get 'verify'
