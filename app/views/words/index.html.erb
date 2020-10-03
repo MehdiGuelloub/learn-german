@@ -3,7 +3,7 @@
         <span><%= "You have #{@words.count} words in total" %></span>
     </li>
     <li class="list-group-item">
-        <span><%= "You have #{@words.mistaken.count} mistaken words in total" %></span>
+        <span><%= "You have #{Word.mistaken.count} mistaken words in total" %></span>
     </li>
     <li class="list-group-item">
         <span><%= link_to 'Go to added words history', history_words_path %></span>
