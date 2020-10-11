@@ -5,6 +5,7 @@
         <li class="list-group-item">
             <strong><%= "#{practice.date}: " %></strong>
             <span><%= "#{practice.number_of_practiced_words_per_day} word(s) practiced" %></span>
+            <span class="text-danger"><%= "#{practice.number_of_mistakes_per_day} mistake(s)" %></span>
         </li>
     <% end %>
 </ul>

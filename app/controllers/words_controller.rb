@@ -86,6 +86,7 @@ class WordsController < ApplicationController
                 )
                 redirect_back :fallback_location => learn_words_path
             else
+                increment_daily_mistakes
                 @word.update(
                     :attempts => @word.attempts + 1,
                     :mistakes => @word.mistakes + 1,
@@ -119,6 +120,12 @@ class WordsController < ApplicationController
     def increment_daily_practice
         practice = Practice.find_or_initialize_by(date: Date.today)
         practice.increment(:number_of_practiced_words_per_day)
+        practice.save!
+    end
+    
+    def increment_daily_mistakes
+        practice = Practice.find_or_initialize_by(date: Date.today)
+        practice.increment(:number_of_mistakes_per_day)
         practice.save!
     end
 end
