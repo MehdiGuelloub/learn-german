@@ -1,6 +1,11 @@
 <ul class="list-group pb-3">
     <li class="list-group-item">
-        <span><%= "You have #{@words.count} words in total" %></span>
+        <span><%= "You have #{Word.count} words in total" %></span>
+    </li>
+    <li class="list-group-item">
+        <span><%= "Your mistakes rate is: " %></span>
+        <strong class="text-danger"><%= "#{number_to_percentage(Word.mistak_by_attempts, precision: 0)}" %></strong>
+        <small class="text-danger"><%= "(#{Word.total_mistakes}/#{Word.total_attempts})" %></small>
     </li>
     <li class="list-group-item">
         <span><%= "You have #{Word.mistaken.count} mistaken words in total" %></span>

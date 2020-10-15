@@ -13,6 +13,9 @@ class Word < ApplicationRecord
     scope :never_attempted, -> { where(attempts: 0) }
     scope :search, -> (term) { where("word ILIKE ?", "%#{term}%").or(where("meaning ILIKE ?", "%#{term}%")) }
     scope :mistaken, -> { where.not(attempts: 0).where(consecutive_correct_answers: 0) }
+    scope :total_attempts, -> { sum(:attempts) }
+    scope :total_mistakes, -> { sum(:mistakes) }
+    scope :mistak_by_attempts, -> { sum(:mistakes).to_f / sum(:attempts).to_f * 100 }
 
     def mistakes_rate
         return mistakes.to_f/attempts.to_f * 100 if attempts > 0
