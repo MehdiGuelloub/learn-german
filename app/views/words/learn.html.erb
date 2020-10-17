@@ -3,7 +3,15 @@
 
     <div class='form-group'>
         <%= label_tag :word %>
-        <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+        <div class="input-group mb-3">
+            <% unless @word.article_none? %>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><%= @word.article %></span>
+                </div>
+            <% end %>
+            <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+        </div>
+
         <% if @word.notes.present? %>
             <a class="form-text text-muted" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <small>Show notes</small> 
