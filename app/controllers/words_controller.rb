@@ -3,14 +3,6 @@ class WordsController < ApplicationController
 
     def index
         @words = Word.all
-
-        # Heavy but should be used rarely
-        if params[:sort_by_mistakes_rate].present?
-            direction = params[:direction] == 'DESC' ? -1 : 1
-            @words = @words.sort_by { |word| word.mistakes_rate * direction }
-            @words = Kaminari.paginate_array(@words)
-        end
-
         @words = @words.search(params[:search_term]) if params[:search_term].present?
         @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak]
         @words = @words.page(params[:page]).per(per_page)
@@ -44,7 +36,13 @@ class WordsController < ApplicationController
 
     def learn
         words = Word.order(Arel.sql('RANDOM()'))
-        words = words.where("consecutive_correct_answers < ?", 10) if params[:filter_learned] == "true"
+
+        if params[:smart_mode] == "true"
+            words = words
+                .where("consecutive_correct_answers < ?", 10)
+                .or(words.where('updated_at < ?', 10.day.ago.to_datetime))
+        end
+
         @word = words.first
         @translation = params[:translation]&.to_sym.presence || [:de_en, :en_de].sample
     end

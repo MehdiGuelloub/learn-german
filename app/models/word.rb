@@ -17,12 +17,6 @@ class Word < ApplicationRecord
     scope :total_mistakes, -> { sum(:mistakes) }
     scope :mistak_by_attempts, -> { sum(:mistakes).to_f / sum(:attempts).to_f * 100 }
 
-    def mistakes_rate
-        return mistakes.to_f/attempts.to_f * 100 if attempts > 0
-        # if no attemps we consider the mistake rate is total 100%
-        100
-    end
-
     private
 
     def parse_words_and_meanings

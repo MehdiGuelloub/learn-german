@@ -34,43 +34,23 @@
             <th scope="col">Meaning</th>
             <th scope="col">Errors</th>
             <th scope="col">
-                <%= link_to "Rate", words_path(sort_by_mistakes_rate: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
-            </th>
-            <th scope="col">
                 <%= link_to "Consecutive", words_path(sort_by_streak: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
             </th>
-            <th></th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         <% @words.each do |word| %>
         <tr>
-            <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
             <td class="d-flex align-items-center">
-                <%= "#{article}#{word.word}" %>
+                <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
+                <%= link_to "#{article}#{word.word}", edit_word_path(word) %>
                 <% if word.attempts == 0 %>
                   <%= image_tag "new.png" %>
                 <% end %>
             </td>
             <td><%= word.meaning %></td>
             <td><%= "#{word.mistakes}/#{word.attempts}" %></td>
-            <td class="<%= word.mistakes_rate < 10 ? "text-success" : "text-danger" %>">
-                <strong>
-                    <%= number_to_percentage(word.mistakes_rate, precision: 0) %>
-                </strong>
-            </td>
             <td><%= word.consecutive_correct_answers %></td>
-            <td>
-                <%= link_to edit_word_path(word), class: "btn btn-link" do %>
-                    <small>Edit</small>
-                <% end %>
-            </td>
-            <td>
-                <%= button_to word_path(word), method: :delete, class: "btn btn-link text-danger" do %>
-                    <small>Delete</small>
-                <% end %>
-            </td>
         </tr>
         <% end %>
     </tbody>

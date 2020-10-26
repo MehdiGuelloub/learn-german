@@ -27,27 +27,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav w-100">
                 <li class="nav-item">
-                    <%= link_to "Stats", words_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
                     <%= link_to "New", new_word_path, class: 'nav-link' %>
                 </li>
-                <li class="nav-item">
-                    <%= link_to "Learn words", learn_words_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Learn articles", learn_articles_words_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item dropdown ml-auto">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <%= link_to "Random translation", learn_words_path, class: 'nav-link' %>
-                        <%= link_to "German to English translation", learn_words_path(translation: :de_en), class: 'nav-link' %>
-                        <%= link_to "English to German translation", learn_words_path(translation: :en_de), class: 'nav-link' %>
-                        <div class="dropdown-item form-check">
-                            <%= check_box_tag nil, nil, params[:filter_learned] == "true", id: "exampleCheck1", class: "form-check-input", :onchange => "window.location.assign(`/words/learn?filter_learned=${this.checked}`)" %>
-                            <label class="form-check-label" for="exampleCheck1">Filter out learned</label>
-                        </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Practice
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%= link_to "Learn", learn_words_path, class: 'dropdown-item' %>
+                        <%= link_to "Smart Learn", learn_words_path(smart_mode: true), class: 'dropdown-item' %>
+                        <%= link_to "Learn articles", learn_articles_words_path, class: 'dropdown-item' %>
+                        <%= link_to "German to English translation", learn_words_path(translation: :de_en), class: 'dropdown-item' %>
+                        <%= link_to "English to German translation", learn_words_path(translation: :en_de), class: 'dropdown-item' %>
                     </div>
                 </li>
             </ul>
