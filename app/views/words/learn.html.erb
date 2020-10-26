@@ -2,6 +2,7 @@
 
 <%= form_tag verify_word_path(@word), method: :get do %>
     <%= hidden_field_tag :translation, params[:translation] %>
+    <%= hidden_field_tag :smart_mode, params[:smart_mode] %>
 
     <div class='form-group'>
         <%= label_tag :word %>
