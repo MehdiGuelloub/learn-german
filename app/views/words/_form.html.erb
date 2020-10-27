@@ -20,7 +20,10 @@
         <div class="input-group mb-3">
             <%= f.text_field :word, class: "form-control", required: true %>
             <div class="input-group-append">
-                <a href class="btn btn-primary" id="check">Check</a>
+                <a href class="btn btn-info" id="search">Search</a>
+            </div>
+            <div class="input-group-append">
+                <a href class="btn btn-secondary" id="check">Check</a>
             </div>
         </div>
     </div>
@@ -60,14 +63,14 @@
             $.get(`https://linguee-api.herokuapp.com/api?q=${value}&src=de&dst=en`, function(data) {
                 if (data && data.exact_matches && data.exact_matches.length) {
                     const suggestions = data.exact_matches.map(function(obj) {
-                        const className = `list-group-item ${obj.text === value ? 'text-success font-weight-bold' : ''}`;
+                        const className = `list-group-item ${obj.text.toLowerCase() === value.toLowerCase() ? 'text-success font-weight-bold' : ''}`;
                         let article;
 
                         switch (obj.word_type.gender) {
                             case "feminine":
                                 article = "die - "
                                 break;
-                            case "neuter ":
+                            case "neuter":
                                 article = "das - "
                                 break;
                             case "masculine":
@@ -84,6 +87,12 @@
                 }
                 $('#myModal').modal('show');
             });
+        });
+
+        $("#search").click(function(event) {
+            event.preventDefault();
+            const query = $("#word_word").val();
+            window.open(`https://www.linguee.de/deutsch-englisch/search?query=${query.replaceAll(" ", "+")}`, '_blank');
         });
     });
 </script>
