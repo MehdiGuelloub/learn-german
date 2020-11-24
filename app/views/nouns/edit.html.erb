@@ -1,0 +1,16 @@
+<h4 class="mb-5">Edit Noun</h4>
+<%= render "form", term: @noun %>
+<%= link_to "Add Example", new_noun_example_path(@noun), class: "btn btn-warning mt-3" %>
+<%= button_to "Delete", noun_path(@noun), method: :delete, class: "btn btn-danger mt-3" %>
+
+<h5 class="mt-5">Examples</h5>
+<ul class="list-group">
+  <% @noun.examples.each do |example| %>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <%= highlight(example.sentence, example.keyword, highlighter: '<strong class="text-success">\1</strong>') %>
+      </div>
+      <%= link_to "Delete", example_path(example), method: :delete, class: "small text-danger text-right" %>
+    </li>
+  <% end %>
+</ul>

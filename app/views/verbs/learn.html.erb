@@ -1,0 +1,6 @@
+<% @verb.examples.each do |example| %>
+  <div>
+    <%= highlight(example.sentence, example.keyword) %>
+    <hr>
+  </div>
+<% end %>

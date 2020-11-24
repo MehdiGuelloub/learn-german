@@ -26,14 +26,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav w-100">
-                <li class="nav-item">
-                    <%= link_to "New", new_word_path, class: 'nav-link' %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        New
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%= link_to "Verb", new_verb_path, class: 'dropdown-item' %>
+                        <%= link_to "Noun", new_noun_path, class: 'dropdown-item' %>
+                        <%= link_to "Adjective", new_adjective_path, class: 'dropdown-item' %>
+                        <%= link_to "Other Word", new_word_path, class: 'dropdown-item' %>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Practice
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%= link_to "Learn in context", learn_examples_path, class: 'dropdown-item' %>
+                        <%= link_to "Learn verbs Partizip", learn_partizip_verbs_path, class: 'dropdown-item' %>
                         <%= link_to "Learn", learn_words_path, class: 'dropdown-item' %>
                         <%= link_to "Smart Learn", learn_words_path(smart_mode: true), class: 'dropdown-item' %>
                         <%= link_to "Learn articles", learn_articles_words_path, class: 'dropdown-item' %>
@@ -46,7 +56,19 @@
     </nav>
 
 
-    <div class="container pt-5">
+    <div class="container pt-5 pb-5">
+        <% if flash[:error].present? %>
+            <div class="alert alert-danger" role="alert">
+                <%= flash[:error].html_safe %>
+            </div>
+        <% end %>
+
+        <% if flash[:notice].present? %>
+            <div class="alert alert-success" role="alert">
+                <%= flash[:notice].html_safe %>
+            </div>
+        <% end %>
+
         <%= yield %>
     </div>
 </body>

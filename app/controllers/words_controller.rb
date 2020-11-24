@@ -110,11 +110,6 @@ class WordsController < ApplicationController
         @word = Word.find(params[:id])
     end
 
-    def per_page
-        per = Integer(params[:per]) rescue 100
-        [per, 250].min
-    end
-
     def increment_daily_practice
         practice = Practice.find_or_initialize_by(date: Date.today)
         practice.increment(:number_of_practiced_words_per_day)

@@ -1,0 +1,2 @@
+class Verb < Term
+end
