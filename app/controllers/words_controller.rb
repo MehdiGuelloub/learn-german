@@ -1,5 +1,5 @@
 class WordsController < ApplicationController
-    before_action :set_word, only: %i(edit update destroy verify)
+    before_action :set_word, only: %i(edit update destroy verify migrate)
 
     def index
         @words = Word.all
@@ -98,6 +98,10 @@ class WordsController < ApplicationController
     def destroy
         @word.destroy
         redirect_to words_path
+    end
+
+    def migrate
+        @term = Term.new
     end
 
     private

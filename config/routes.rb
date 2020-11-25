@@ -10,10 +10,11 @@ Rails.application.routes.draw do
     end
     member do
       get :verify
+      get :migrate
     end
   end
 
-  resources :terms, only: :index
+  resources :terms, only: %i(index create)
   resources :verbs, only: %i(new create edit update destroy) do
     resources :examples, only: %i(new create)
     collection do

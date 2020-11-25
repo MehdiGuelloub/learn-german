@@ -36,6 +36,7 @@
             <th scope="col">
                 <%= link_to "Consecutive", words_path(sort_by_streak: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
             </th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -51,6 +52,13 @@
             <td><%= word.meaning %></td>
             <td><%= "#{word.mistakes}/#{word.attempts}" %></td>
             <td><%= word.consecutive_correct_answers %></td>
+            <td>
+                <% unless word.migrated? %>
+                    <%= link_to migrate_word_path(word), class: "btn btn-link small" do %>
+                        <small>Migrate</small>
+                    <% end %>
+                <% end %>
+            </td>
         </tr>
         <% end %>
     </tbody>

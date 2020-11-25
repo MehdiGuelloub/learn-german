@@ -1,0 +1,13 @@
+<%= form_for @term, builder: MyFormBuilder do |f| %>
+  <%= hidden_field_tag :word_id, @word.id %>
+  <%= f.select :type, options_for_select(['Verb', 'Noun', 'Adjective'], nil), { include_blank: true }, required: true %>
+  <%= f.select :article, options_for_select(Noun.articles.map { |key, value| [key, key] }, @word.article), { include_blank: true } %>
+  <%= f.text_field :base, value: @word.word, required: true %>
+  <%= f.text_field :plural %>
+  <%= f.text_field :perfect %>
+  <%= f.text_field :praeteritum %>
+  <%= f.text_field :comparative %>
+  <%= f.text_field :superlative %>
+  <%= f.text_field :meaning, value: @word.meaning, required: true %>
+  <%= f.submit class: 'btn btn-info' %>
+<% end %>
