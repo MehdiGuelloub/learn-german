@@ -101,6 +101,7 @@ class WordsController < ApplicationController
     end
 
     def migrate
+        params[:type] ||= "Noun" unless @word.article_none?
         @term = Term.new
     end
 

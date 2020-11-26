@@ -28,10 +28,11 @@ class ExamplesController < ApplicationController
   end
 
   def verify_meaning
-    attempt = Attempt.new(term: @example.term, correct: params[:meaning] == @example.term.meaning)
+    attempt = Attempt.new(term: @example.term, correct: params[:meaning].downcase == @example.term.meaning.downcase)
     attempt.save!
 
     if attempt.correct?
+      @example.term.update!(meaning_learned: true) if params[:meaning_learned] == "true"
       redirect_to learn_examples_path
     else
       flash[:error] = "Ooops! Your attempt <i class='text-secondary'>#{params[:meaning]}</i> is wrong! <a href='/examples/learn'>Continue Learning</a>"
