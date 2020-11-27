@@ -22,7 +22,7 @@ class AdjectivesController < ApplicationController
   def update
     if @adjective.update(adjective_params)
       flash[:notice] = "Adjective updated successfully"
-      redirect_to adjectives_path
+      redirect_to terms_path
     else
       flash[:error] = @adjective.errors.full_messages.to_sentence
       render :edit

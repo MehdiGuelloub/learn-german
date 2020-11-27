@@ -22,7 +22,7 @@ class VerbsController < ApplicationController
   def update
     if @verb.update(verb_params)
       flash[:notice] = "Verb updated successfully"
-      redirect_to verbs_path
+      redirect_to terms_path
     else
       flash[:error] = @verb.errors.full_messages.to_sentence
       render :edit

@@ -22,7 +22,7 @@ class NounsController < ApplicationController
   def update
     if @noun.update(noun_params)
       flash[:notice] = "Noun updated successfully"
-      redirect_to nouns_path
+      redirect_to terms_path
     else
       flash[:error] = @noun.errors.full_messages.to_sentence
       render :edit
