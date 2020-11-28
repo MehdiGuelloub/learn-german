@@ -70,6 +70,7 @@ class VerbsController < ApplicationController
         :perfect,
         :praeteritum,
         :meaning,
+        :meanings_accepted,
       )
   end
 end

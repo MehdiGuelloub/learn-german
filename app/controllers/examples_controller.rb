@@ -28,7 +28,7 @@ class ExamplesController < ApplicationController
   end
 
   def verify_meaning
-    attempt = Attempt.new(term: @example.term, correct: params[:meaning].downcase == @example.term.meaning.downcase)
+    attempt = Attempt.new(term: @example.term, correct: @example.term.meanings.include?(params[:meaning].downcase))
     attempt.save!
 
     if attempt.correct?

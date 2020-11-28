@@ -48,6 +48,7 @@ class NounsController < ApplicationController
         :base,
         :plural,
         :meaning,
+        :meanings_accepted,
       )
   end
 end

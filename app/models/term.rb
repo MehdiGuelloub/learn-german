@@ -7,6 +7,12 @@ class Term < ApplicationRecord
   validates :type, inclusion: { in: %w(Verb Noun Adjective), message: "%{value} is not a valid type" }
   before_save :parse_words_and_meanings
 
+  def meanings
+    meanings = [meaning]
+    meanings.concat meanings_accepted.split(', ') if meanings_accepted.present?
+    meanings.map(&:downcase)
+  end
+
   private
 
   def parse_words_and_meanings

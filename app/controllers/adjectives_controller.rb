@@ -48,6 +48,7 @@ class AdjectivesController < ApplicationController
         :comparative,
         :superlative,
         :meaning,
+        :meanings_accepted,
       )
   end
 end
