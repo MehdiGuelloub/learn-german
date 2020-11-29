@@ -6,7 +6,8 @@ class Example < ApplicationRecord
   private
 
   def example_includes_keyword
-    unless sentence.include? keyword
+    keyword_parts = keyword.split(', ')
+    unless keyword_parts.all?{|part| sentence.include? part}
       errors.add(:keyword, "keyword not found")
     end
   end

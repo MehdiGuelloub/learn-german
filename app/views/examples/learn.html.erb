@@ -4,7 +4,7 @@
     <%= label_tag nil, "Sentence", class: "col-sm-4 col-form-label"%>
     <div class="col-sm-8">
       <div class="form-control">
-        <%= highlight(@example.sentence, @example.keyword, highlighter: '<strong class="text-success">\1</strong>') %>
+        <%= highlight(@example.sentence, @example.keyword.split(', '), highlighter: '<span class="text-success">\1</span>') %>
       </div>
     </div>
   </div>

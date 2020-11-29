@@ -8,7 +8,7 @@
   <% @adjective.examples.each do |example| %>
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <div>
-        <%= highlight(example.sentence, example.keyword, highlighter: '<strong class="text-success">\1</strong>') %>
+        <%= highlight(example.sentence, example.keyword.split(', '), highlighter: '<strong class="text-success">\1</strong>') %>
       </div>
       <%= link_to "Delete", example_path(example), method: :delete, class: "small text-danger text-right" %>
     </li>

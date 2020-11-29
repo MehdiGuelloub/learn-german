@@ -20,7 +20,7 @@
 		<tr>
 			<th scope="col">term</th>
 			<th scope="col">Meaning</th>
-			<th scope="col">Errors</th>
+			<th scope="col">Results</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +31,7 @@
 					<%= link_to "#{article}#{term.base}", url_for([:edit, term]) %>
 				</td>
 				<td><%= term.meaning %></td>
-				<td><%= term.attempts.mistakes.count %>/<%= term.attempts.count %></td>
+				<td><%= term.attempts.correct.count %>/<%= term.attempts.count %></td>
 			</tr>
 		<% end %>
 	</tbody>
