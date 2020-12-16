@@ -3,7 +3,7 @@
   <div class="form-group row">
     <%= label_tag nil, "Sentence", class: "col-sm-4 col-form-label"%>
     <div class="col-sm-8">
-      <div class="form-control">
+      <div class="form-control h-auto p-3">
         <%= highlight(@example.sentence, @example.keyword.split(', '), highlighter: '<span class="text-success">\1</span>') %>
       </div>
     </div>
