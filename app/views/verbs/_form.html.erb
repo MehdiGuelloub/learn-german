@@ -6,19 +6,4 @@
   <%= f.text_field :meanings_accepted %>
   <%= f.check_box :meaning_learned %>
   <%= f.submit class: 'btn btn-info' %>
-  <a href class="btn btn-warning" id="investigate_verb">Search</a>
 <% end %>
-
-<script>
-  $(document).ready(function() {
-    $("#investigate_verb").click(function(event) {
-      event.preventDefault();
-      const query = $("#verb_base").val();
-      window.open(`https://www.linguee.de/deutsch-englisch/search?query=${query.replaceAll(" ", "+")}`, '_blank');
-      window.open(`https://www.wordreference.com/deen/${query.replaceAll(" ", "+")}`, '_blank');
-      window.open(`https://www.duden.de/rechtschreibung/${query.replaceAll(" ", "+")}`, '_blank');
-      window.open(`https://www.dwds.de/wb/${query.replaceAll(" ", "+")}`, '_blank');
-      window.open(`https://context.reverso.net/translation/german-english/${query.replaceAll(" ", "+")}`, '_blank');
-    });
-  });
-</script>
