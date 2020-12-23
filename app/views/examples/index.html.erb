@@ -1,0 +1,17 @@
+<h3 class="pb-5">Examples:</h1>
+
+<%= paginate @examples%>
+
+<ul class="list-group pb-3">
+    <% @examples.each do |example| %>
+        <li class="list-group-item">
+            <div>
+                <%= example.sentence %>
+            </div>
+            <%= link_to "Edit", url_for([:edit, example.term]), class: "small text-info text-right" %>
+            <%= link_to "Delete", example_path(example), method: :delete, class: "small text-danger text-right" %>
+        </li>
+    <% end %>
+</ul>
+
+<%= paginate @examples%>

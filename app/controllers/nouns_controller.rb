@@ -31,7 +31,7 @@ class NounsController < ApplicationController
 
   def destroy
     @noun.destroy
-    redirect_to nouns_path
+    redirect_to terms_path
   end
 
   private

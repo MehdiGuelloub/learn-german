@@ -31,7 +31,7 @@ class AdjectivesController < ApplicationController
 
   def destroy
     @adjective.destroy
-    redirect_to adjectives_path
+    redirect_to terms_path
   end
 
   private

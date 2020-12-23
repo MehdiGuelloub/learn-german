@@ -2,6 +2,12 @@ class ExamplesController < ApplicationController
   before_action :set_term, only: %i(new create)
   before_action :set_example, only: %i(destroy verify_meaning)
 
+  def index
+    @examples = Example
+      .page(params[:page])
+      .per(per_page)
+  end
+
   def new
     @example = @term.examples.build
   end
@@ -10,7 +16,7 @@ class ExamplesController < ApplicationController
     @example = @term.examples.build(example_params)
     if @term.save
       flash[:notice] = "Example added successfully"
-      redirect_to terms_path
+      redirect_back fallback_location: terms_path
     else
       flash[:error] = @term.errors.full_messages.to_sentence
       render :new

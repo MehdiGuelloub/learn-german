@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :examples, only: %i(new create)
   end
 
-  resources :examples, only: :destroy do
+  resources :examples, only: %i(index destroy) do
     collection do
       get :learn
     end

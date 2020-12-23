@@ -31,7 +31,7 @@ class VerbsController < ApplicationController
 
   def destroy
     @verb.destroy
-    redirect_to verbs_path
+    redirect_to terms_path
   end
 
   def learn_partizip
