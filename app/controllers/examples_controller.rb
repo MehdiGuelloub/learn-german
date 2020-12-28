@@ -1,6 +1,7 @@
 class ExamplesController < ApplicationController
   before_action :set_term, only: %i(new create)
   before_action :set_example, only: %i(destroy verify_meaning)
+  skip_before_action :verify_authenticity_token
 
   def index
     @examples = Example
@@ -16,10 +17,18 @@ class ExamplesController < ApplicationController
     @example = @term.examples.build(example_params)
     if @term.save
       flash[:notice] = "Example added successfully"
-      redirect_back fallback_location: terms_path
+
+      respond_to do |format|
+        format.html { redirect_back fallback_location: terms_path }
+        format.json { render :show }
+      end
     else
       flash[:error] = @term.errors.full_messages.to_sentence
-      render :new
+
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @example.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -31,6 +40,11 @@ class ExamplesController < ApplicationController
   def learn
     examples = Example.order(Arel.sql('RANDOM()'))
     @example = examples.first
+    
+    respond_to do |format|
+      format.html { render :learn }
+      format.json { render :learn }
+    end
   end
 
   def verify_meaning
@@ -39,10 +53,18 @@ class ExamplesController < ApplicationController
 
     if attempt.correct?
       @example.term.update!(meaning_learned: true) if params[:meaning_learned] == "true"
-      redirect_to learn_examples_path
+
+      respond_to do |format|
+        format.html { redirect_to learn_examples_path }
+        format.json { render :json => {:errors => "Bravo!"}, :status => :ok }
+      end
     else
       flash[:error] = "Ooops! Your attempt <i class='text-secondary'>#{params[:meaning]}</i> is wrong! <a href='/examples/learn'>Continue Learning</a>"
-      redirect_to url_for([:edit, @example.term])
+
+      respond_to do |format|
+        format.html { redirect_to url_for([:edit, @example.term]) }
+        format.json { render :json => {:errors => "Wrong answer!"}, :status => :unprocessable_entity }
+      end
     end
   end
 

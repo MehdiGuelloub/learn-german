@@ -1,5 +1,6 @@
 class AdjectivesController < ApplicationController
   before_action :set_adjective, only: %i(edit update destroy)
+  skip_before_action :verify_authenticity_token
 
   def new
     @adjective = Adjective.new
@@ -9,10 +10,18 @@ class AdjectivesController < ApplicationController
     @adjective = Adjective.new(adjective_params)
     if @adjective.save
       flash[:notice] = "Adjective added successfully"
-      redirect_to new_adjective_example_path(@adjective)
+
+      respond_to do |format|
+        format.html { redirect_to new_adjective_example_path(@adjective) }
+        format.json { render :show }
+      end
     else
       flash[:error] = @adjective.errors.full_messages.to_sentence
-      render :new
+
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @adjective.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -22,16 +31,28 @@ class AdjectivesController < ApplicationController
   def update
     if @adjective.update(adjective_params)
       flash[:notice] = "Adjective updated successfully"
-      redirect_to terms_path
+
+      respond_to do |format|
+        format.html { redirect_to terms_path }
+        format.json { render :show }
+      end
     else
       flash[:error] = @adjective.errors.full_messages.to_sentence
-      render :edit
+
+      respond_to do |format|
+        format.html { render :edit }
+        format.json { render json: @adjective.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @adjective.destroy
-    redirect_to terms_path
+
+    respond_to do |format|
+      format.html { redirect_to terms_path }
+      format.json { head 200 }
+    end
   end
 
   private

@@ -1,5 +1,6 @@
 class VerbsController < ApplicationController
   before_action :set_verb, only: %i(edit update destroy verify_partizip)
+  skip_before_action :verify_authenticity_token
 
   def new
     @verb = Verb.new
@@ -9,10 +10,18 @@ class VerbsController < ApplicationController
     @verb = Verb.new(verb_params)
     if @verb.save
       flash[:notice] = "Verb added successfully"
-      redirect_to new_verb_example_path(@verb)
+
+      respond_to do |format|
+        format.html { redirect_to new_verb_example_path(@verb) }
+        format.json { render :show }
+      end
     else
       flash[:error] = @verb.errors.full_messages.to_sentence
-      render :new
+
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @verb.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -22,16 +31,28 @@ class VerbsController < ApplicationController
   def update
     if @verb.update(verb_params)
       flash[:notice] = "Verb updated successfully"
-      redirect_to terms_path
+
+      respond_to do |format|
+        format.html { redirect_to terms_path }
+        format.json { render :show }
+      end
     else
       flash[:error] = @verb.errors.full_messages.to_sentence
-      render :edit
+
+      respond_to do |format|
+        format.html { render :edit }
+        format.json { render json: @verb.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @verb.destroy
-    redirect_to terms_path
+
+    respond_to do |format|
+      format.html { redirect_to terms_path }
+      format.json { head 200 }
+    end
   end
 
   def learn_partizip

@@ -42,4 +42,23 @@ Rails.application.routes.draw do
     end
   end
 
+  get "api/terms"                             =>  "terms#index"
+
+  post "api/verbs"                            =>  "verbs#create"
+  get "api/verbs/:id"                         =>  "verbs#show"
+  put "api/verbs/:id"                         =>  "verbs#update"
+  delete "api/verbs/:id"                      =>  "verbs#destroy"
+
+  post "api/adjectives"                       =>  "adjectives#create"
+  get "api/adjectives/:id"                    =>  "adjectives#show"
+  put "api/adjectives/:id"                    =>  "adjectives#update"
+  delete "api/adjectives/:id"                 =>  "adjectives#destroy"
+
+  post "api/nouns"                            =>  "nouns#create"
+  get "api/nouns/:id"                         =>  "nouns#show"
+  put "api/nouns/:id"                         =>  "nouns#update"
+  delete "api/nouns/:id"                      =>  "nouns#destroy"
+
+  get "api/examples/learn"                    =>  "examples#learn"
+  post "api/examples/:id/verify_meaning"      =>  "examples#verify_meaning"  # params[:meaning]
 end

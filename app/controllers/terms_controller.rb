@@ -1,8 +1,15 @@
 class TermsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     @terms = Term.all
     @terms = @terms.search(params[:search_term]) if params[:search_term].present?
     @terms = @terms.page(params[:page]).per(per_page)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render :index }
+    end
   end
 
   def create
