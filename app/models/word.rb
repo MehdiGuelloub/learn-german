@@ -1,5 +1,4 @@
 class Word < ApplicationRecord
-    validates :word, uniqueness: { case_sensitive: false }
     before_save :parse_words_and_meanings
 
     enum article: {
@@ -16,6 +15,10 @@ class Word < ApplicationRecord
     scope :total_attempts, -> { sum(:attempts) }
     scope :total_mistakes, -> { sum(:mistakes) }
     scope :mistak_by_attempts, -> { sum(:mistakes).to_f / sum(:attempts).to_f * 100 }
+
+    def other_meanings
+        Word.where(word: word).where.not(id: id)
+    end
 
     private
 

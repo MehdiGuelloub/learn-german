@@ -1,6 +1,6 @@
 <ul class="list-group pb-3">
     <li class="list-group-item">
-        <span><%= "You have #{Word.count} words in total" %></span>
+        <span><%= "You have #{Word.select(:word).distinct.count} words in total" %></span>
     </li>
     <li class="list-group-item">
         <span><%= "Your mistakes rate is: " %></span>
@@ -36,12 +36,11 @@
             <th scope="col">
                 <%= link_to "Consecutive", words_path(sort_by_streak: true, direction: params[:direction] == "DESC" ? "ASC" : "DESC") %>
             </th>
-            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         <% @words.each do |word| %>
-        <tr>
+        <tr class=<%= word.migrated_back ? "table-warning" : "" %>>
             <td class="d-flex align-items-center">
                 <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
                 <%= link_to "#{article}#{word.word}", edit_word_path(word) %>
@@ -52,13 +51,6 @@
             <td><%= word.meaning %></td>
             <td><%= "#{word.mistakes}/#{word.attempts}" %></td>
             <td><%= word.consecutive_correct_answers %></td>
-            <td>
-                <% unless word.migrated? %>
-                    <%= link_to migrate_word_path(word), class: "btn btn-link small" do %>
-                        <small>Migrate</small>
-                    <% end %>
-                <% end %>
-            </td>
         </tr>
         <% end %>
     </tbody>

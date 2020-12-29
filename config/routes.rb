@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'terms#index'
+  root 'words#index'
 
   resources :practices, only: :index
   resources :words do

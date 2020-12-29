@@ -11,10 +11,18 @@
 <% end %>
 
 <%= form_for word do |f| %>
+    <div class="alert alert-primary" role="alert">
+        See also
+        <% @word.other_meanings.each do |other_meaning| %>
+            <%= link_to other_meaning.word, edit_word_path(other_meaning), class: "small text-right" %>
+        <% end %>
+    </div>
+
     <div class="form-group">
         <%= f.label :article %>
         <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key, key] }, word.new_record? ? nil : word.article), { include_blank: true }, class: "form-control", required: true %>
     </div>
+
     <div class="form-group">
         <%= f.label :word %>
         <div class="input-group mb-3">
@@ -27,15 +35,28 @@
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <%= f.label :example %>
+        <%= f.text_area :example, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :keyword %>
+        <%= f.text_field :keyword, class: "form-control", required: true %>
+    </div>
+
     <div class="form-group">
         <%= f.label :meaning %>
         <%= f.text_field :meaning, class: "form-control", required: true %>
         <small id="notoverbs" class="form-text text-muted">You don't need to prefix verbs with "to" </small>
     </div>
+
     <div class="form-group">
         <%= f.label :notes %>
         <%= f.text_area :notes, class: "form-control" %>
     </div>
+
     <%= f.submit class: 'btn btn-info' %>
 <% end %>
 

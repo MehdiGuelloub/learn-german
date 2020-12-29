@@ -27,29 +27,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav w-100">
                 <li class="nav-item">
-                    <%= link_to "Words", words_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Examples", examples_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        New
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <%= link_to "Verb", new_verb_path, class: 'dropdown-item' %>
-                        <%= link_to "Noun", new_noun_path, class: 'dropdown-item' %>
-                        <%= link_to "Adjective", new_adjective_path, class: 'dropdown-item' %>
-                        <%= link_to "Other Word", new_word_path, class: 'dropdown-item' %>
-                    </div>
+                    <%= link_to "New", new_word_path, class: 'nav-link' %>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Practice
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <%= link_to "Learn in context", learn_examples_path, class: 'dropdown-item' %>
-                        <%= link_to "Learn verbs Partizip", learn_partizip_verbs_path, class: 'dropdown-item' %>
                         <%= link_to "Learn", learn_words_path, class: 'dropdown-item' %>
                         <%= link_to "Smart Learn", learn_words_path(smart_mode: true), class: 'dropdown-item' %>
                         <%= link_to "Learn articles", learn_articles_words_path, class: 'dropdown-item' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_091241) do
+ActiveRecord::Schema.define(version: 2020_12_29_154901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,9 @@ ActiveRecord::Schema.define(version: 2020_11_27_091241) do
     t.integer "article_mistakes", default: 0, null: false
     t.integer "article_consecutive_correct_answers", default: 0, null: false
     t.boolean "migrated", default: false
+    t.string "example"
+    t.string "keyword"
+    t.boolean "migrated_back"
   end
 
 end
