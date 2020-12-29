@@ -8,7 +8,7 @@
         <div class="form-group">
             <%= label_tag :example %>
             <div class="form-control h-auto p-3">
-                <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') %>
+                <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') if @word.example.present? && @word.keyword.present? %>
             </div>
         </div>
 
