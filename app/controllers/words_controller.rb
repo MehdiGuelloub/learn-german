@@ -108,7 +108,7 @@ class WordsController < ApplicationController
     private
 
     def word_params
-        params.require(:word).permit(:word, :article, :meaning, :notes)
+        params.require(:word).permit(:word, :article, :meaning, :notes, :example, :keyword)
     end
 
     def set_word

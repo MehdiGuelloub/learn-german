@@ -12,20 +12,26 @@
             </div>
         </div>
 
-        <div class="input-group mb-3">
-            <% unless @word.article_none? %>
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><%= @word.article %></span>
-                </div>
-            <% end %>
-            <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+        <a class="form-text text-muted" data-toggle="collapse" href="#collapseBase" role="button" aria-expanded="false" aria-controls="collapseBase">
+            <small>Show base word</small>
+        </a>
+        
+        <div class=<%= "collapse #{"show" unless @word.example.present?}"%> id="collapseBase">
+            <div class="input-group mb-3">
+                <% unless @word.article_none? %>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><%= @word.article %></span>
+                    </div>
+                <% end %>
+                <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+            </div>
         </div>
 
         <% if @word.notes.present? %>
-            <a class="form-text text-muted" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="form-text text-muted" data-toggle="collapse" href="#collapseNotes" role="button" aria-expanded="false" aria-controls="collapseNotes">
                 <small>Show notes</small>
             </a>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseNotes">
                 <div class="card card-body">
                     <%= @word.notes %>
                 </div>

@@ -4,19 +4,15 @@
     </div>
 <% end %>
 
-<% if flash[:notice].present? %>
-    <div class="alert alert-success" role="alert">
-        <%= flash[:notice] %>
-    </div>
-<% end %>
-
 <%= form_for word do |f| %>
-    <div class="alert alert-primary" role="alert">
-        See also
-        <% @word.other_meanings.each do |other_meaning| %>
-            <%= link_to other_meaning.word, edit_word_path(other_meaning), class: "small text-right" %>
-        <% end %>
-    </div>
+    <% if @word.other_meanings.present? %>
+        <div class="alert alert-primary" role="alert">
+            See also
+            <% @word.other_meanings.each do |other_meaning| %>
+                <%= link_to other_meaning.word, edit_word_path(other_meaning), class: "small text-right" %>
+            <% end %>
+        </div>
+    <% end %>
 
     <div class="form-group">
         <%= f.label :article %>

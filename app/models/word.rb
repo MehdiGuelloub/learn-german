@@ -8,6 +8,8 @@ class Word < ApplicationRecord
         'das' => 3,
     }, _prefix: true
 
+    validate :example_includes_keyword
+
     scope :most_attempted, -> { where(attempts: maximum(:attempts)) }
     scope :never_attempted, -> { where(attempts: 0) }
     scope :search, -> (term) { where("word ILIKE ?", "%#{term}%").or(where("meaning ILIKE ?", "%#{term}%")) }
@@ -21,6 +23,13 @@ class Word < ApplicationRecord
     end
 
     private
+  
+    def example_includes_keyword
+      keyword_parts = keyword.split(', ')
+      unless keyword_parts.all?{|part| example.include? part}
+        errors.add(:example, "should contain keyword")
+      end
+    end
 
     def parse_words_and_meanings
         self.meaning = self.meaning.strip.capitalize
