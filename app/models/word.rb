@@ -8,7 +8,7 @@ class Word < ApplicationRecord
         'das' => 3,
     }, _prefix: true
 
-    validate :example_includes_keyword
+    validate :example_includes_keyword, :on => :create
 
     scope :most_attempted, -> { where(attempts: maximum(:attempts)) }
     scope :never_attempted, -> { where(attempts: 0) }
