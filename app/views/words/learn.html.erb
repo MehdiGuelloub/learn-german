@@ -5,29 +5,37 @@
     <%= hidden_field_tag :smart_mode, params[:smart_mode] %>
 
     <div class='form-group'>
-        <% if @translation == :de_en %>
+        <a class="form-text text-muted" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseBase">
+            <small>Show Example</small>
+        </a>
+        <div class='<%= "collapse #{"show" if @translation == :de_en}"%>' id="collapseExample">
             <div class="form-group">
                 <%= label_tag :example %>
                 <div class="form-control h-auto p-3">
                     <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') if @word.example.present? && @word.keyword.present? %>
                 </div>
             </div>
-        <% end %>
+        </div>
 
-        <div class="input-group mb-3">
-            <% unless @word.article_none? %>
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1"><%= @word.article %></span>
-                </div>
-            <% end %>
-            <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+        <a class="form-text text-muted" data-toggle="collapse" href="#collapseBase" role="button" aria-expanded="false" aria-controls="collapseBase">
+            <small>Show base word</small>
+        </a>
+        <div class='<%= "collapse #{"show" if @word.example.blank? || @translation == :en_de}"%>' id="collapseBase">
+            <div class="input-group mb-3">
+                <% unless @word.article_none? %>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><%= @word.article %></span>
+                    </div>
+                <% end %>
+                <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+            </div>
         </div>
 
         <% if @word.notes.present? %>
-            <a class="form-text text-muted" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="form-text text-muted" data-toggle="collapse" href="#collapseNotes" role="button" aria-expanded="false" aria-controls="collapseNotes">
                 <small>Show notes</small>
             </a>
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="collapseNotes">
                 <div class="card card-body">
                     <%= @word.notes %>
                 </div>
