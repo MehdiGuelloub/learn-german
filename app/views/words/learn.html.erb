@@ -5,12 +5,14 @@
     <%= hidden_field_tag :smart_mode, params[:smart_mode] %>
 
     <div class='form-group'>
-        <div class="form-group">
-            <%= label_tag :example %>
-            <div class="form-control h-auto p-3">
-                <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') if @word.example.present? && @word.keyword.present? %>
+        <% if @translation == :de_en %>
+            <div class="form-group">
+                <%= label_tag :example %>
+                <div class="form-control h-auto p-3">
+                    <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') if @word.example.present? && @word.keyword.present? %>
+                </div>
             </div>
-        </div>
+        <% end %>
 
         <div class="input-group mb-3">
             <% unless @word.article_none? %>
