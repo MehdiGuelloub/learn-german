@@ -1,1 +1,1 @@
-json.terms @terms
+json.partial! 'term', collection: @terms, as: :term
