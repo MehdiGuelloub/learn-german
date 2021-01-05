@@ -40,12 +40,15 @@
     </thead>
     <tbody>
         <% @words.each do |word| %>
-        <tr class=<%= word.migrated_back ? "table-warning" : "" %>>
+        <tr class='<%= "table-danger" if word.updated_at < 3.day.ago %>'>
             <td class="d-flex align-items-center">
                 <% article = word.article_none? ? "" : "#{word.read_attribute("article")} "%>
                 <%= link_to "#{article}#{word.word}", edit_word_path(word) %>
                 <% if word.attempts == 0 %>
-                  <%= image_tag "new.png" %>
+                  <span class="badge badge-pill badge-success ml-2">New</span>
+                <% end %>
+                <% if word.example.blank? %>
+                  <span class="badge badge-pill badge-danger ml-2">E.g.</span>
                 <% end %>
             </td>
             <td><%= word.meaning %></td>
