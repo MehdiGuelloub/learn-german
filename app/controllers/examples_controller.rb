@@ -34,7 +34,11 @@ class ExamplesController < ApplicationController
 
   def destroy
     @example.destroy
-    redirect_back fallback_location: @example
+
+    respond_to do |format|
+      format.html { redirect_back fallback_location: @example }
+      format.json { head 200 }
+    end
   end
 
   def learn

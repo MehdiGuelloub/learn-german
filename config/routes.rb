@@ -42,23 +42,31 @@ Rails.application.routes.draw do
     end
   end
 
-  get "api/terms"                             =>  "terms#index"
+  get "api/terms"                                               =>  "terms#index"
+  post "api/verbs"                                              =>  "verbs#create"
+  get "api/verbs/:id"                                           =>  "verbs#show"
+  put "api/verbs/:id"                                           =>  "verbs#update"
+  delete "api/verbs/:id"                                        =>  "verbs#destroy"
+  post "api/verbs/:verb_id/examples"                            =>  "examples#create"
+  get "api/verbs/:verb_id/examples/:id"                         =>  "examples#show"
+  delete "api/verbs/:verb_id/examples/:id"                      =>  "examples#destroy"
 
-  post "api/verbs"                            =>  "verbs#create"
-  get "api/verbs/:id"                         =>  "verbs#show"
-  put "api/verbs/:id"                         =>  "verbs#update"
-  delete "api/verbs/:id"                      =>  "verbs#destroy"
+  post "api/adjectives"                                         =>  "adjectives#create"
+  get "api/adjectives/:id"                                      =>  "adjectives#show"
+  put "api/adjectives/:id"                                      =>  "adjectives#update"
+  delete "api/adjectives/:id"                                   =>  "adjectives#destroy"
+  post "api/adjectives/:adjective_id/examples"                  =>  "examples#create"
+  get "api/adjectives/:adjective_id/examples/:id"               =>  "examples#show"
+  delete "api/adjectives/:adjective_id/:id/examples"            =>  "examples#destroy"
 
-  post "api/adjectives"                       =>  "adjectives#create"
-  get "api/adjectives/:id"                    =>  "adjectives#show"
-  put "api/adjectives/:id"                    =>  "adjectives#update"
-  delete "api/adjectives/:id"                 =>  "adjectives#destroy"
+  post "api/nouns"                                              =>  "nouns#create"
+  get "api/nouns/:id"                                           =>  "nouns#show"
+  put "api/nouns/:id"                                           =>  "nouns#update"
+  delete "api/nouns/:id"                                        =>  "nouns#destroy"
+  post "api/nouns/:noun_id/examples"                            =>  "examples#create"
+  get "api/nouns/:noun_id/examples/:id"                         =>  "examples#show"
+  delete "api/nouns/:noun_id/examples/:id"                      =>  "examples#destroy"
 
-  post "api/nouns"                            =>  "nouns#create"
-  get "api/nouns/:id"                         =>  "nouns#show"
-  put "api/nouns/:id"                         =>  "nouns#update"
-  delete "api/nouns/:id"                      =>  "nouns#destroy"
-
-  get "api/examples/learn"                    =>  "examples#learn"
-  post "api/examples/:id/verify_meaning"      =>  "examples#verify_meaning"  # params[:meaning]
+  get "api/examples/learn"                                      =>  "examples#learn"
+  post "api/examples/:id/verify_meaning"                        =>  "examples#verify_meaning"  # params[:meaning]
 end
