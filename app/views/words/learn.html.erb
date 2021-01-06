@@ -48,4 +48,5 @@
         <small id="notoverbs" class="form-text text-muted">You don't need to prefix verbs with "to" </small>
     </div>
     <%= submit_tag 'Verify', class: 'btn btn-info' %>
+    <%= link_to 'LEARNED!', word_path(@word, word: {learned: true}), method: :put, class: 'btn btn-warning' %>
 <% end %>

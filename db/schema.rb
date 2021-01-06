@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_154901) do
+ActiveRecord::Schema.define(version: 2021_01_05_233827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_154901) do
     t.string "example"
     t.string "keyword"
     t.boolean "migrated_back"
+    t.boolean "learned", default: false
   end
 
 end

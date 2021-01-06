@@ -4,6 +4,7 @@ class WordsController < ApplicationController
     def index
         @words = Word.all
         @words = @words.search(params[:search_term]) if params[:search_term].present?
+        @words = @words.where(learned: params[:only_show_learned] == "true")
         @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak]
         @words = @words.page(params[:page]).per(per_page)
     end
@@ -28,14 +29,14 @@ class WordsController < ApplicationController
     def update
         if @word.update(word_params)
             flash[:notice] = "Word updated successfully"
-            redirect_to words_path
+            redirect_to word_params.include?(:learned) ? learn_words_path : words_path
         else
             render :edit
         end
     end
 
     def learn
-        words = Word.order(Arel.sql('RANDOM()'))
+        words = Word.where(learned: false).order(Arel.sql('RANDOM()'))
 
         if params[:smart_mode] == "true"
             words = words
@@ -108,7 +109,7 @@ class WordsController < ApplicationController
     private
 
     def word_params
-        params.require(:word).permit(:word, :article, :meaning, :notes, :example, :keyword)
+        params.require(:word).permit(:word, :article, :meaning, :notes, :example, :keyword, :learned)
     end
 
     def set_word
