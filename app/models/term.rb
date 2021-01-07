@@ -14,13 +14,7 @@ class Term < ApplicationRecord
   end
 
   def error_rate
-    attempts_correct_count = attempts.correct.count
-    attempts_count= attempts.count
-    if attempts_correct_count.zero? || attempts_count.zero?
-      0
-    else
-      attempts_correct_count / attempts_count
-    end
+    "#{attempts.correct.count}/#{attempts.count}"
   end
 
   private
