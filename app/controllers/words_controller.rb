@@ -36,7 +36,7 @@ class WordsController < ApplicationController
     end
 
     def learn
-        words = Word.where(learned: false, article: 1).order(Arel.sql('RANDOM()'))
+        words = Word.where(learned: false).order(Arel.sql('RANDOM()'))
 
         if params[:smart_mode] == "true"
             words = words
