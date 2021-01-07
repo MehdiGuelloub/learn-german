@@ -22,7 +22,7 @@
                 <div class="input-group mb-3">
                     <% unless @word.article_none? %>
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><%= @word.article %></span>
+                            <span class='input-group-text <%= article_color(@word) %>' id="basic-addon1"><%= @word.article %></span>
                         </div>
                     <% end %>
                     <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>

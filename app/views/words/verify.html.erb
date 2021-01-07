@@ -32,40 +32,8 @@
 
 <div class="form-group">
     <label>Example</label>
-    <input type="text" class="form-control" value="<%= @word.notes %>" />
+    <input type="text" class="form-control" value="<%= @word.example %>" />
 </div>
-
-<div class="form-group">
-    <label>Attempts</label>
-    <input type="text" class="form-control" value="<%= @word.attempts %>" />
-</div>
-
-<div class="form-group">
-    <label>Mistakes</label>
-    <input type="text" class="form-control" value="<%= @word.mistakes %>" />
-</div>
-
-<div class="form-group">
-    <label>Consecutive Correct Answers</label>
-    <input type="text" class="form-control" value="<%= @word.consecutive_correct_answers %>" />
-</div>
-
-<% unless @word.article_none? %>
-    <div class="form-group">
-        <label>Article attempts</label>
-        <input type="text" class="form-control" value="<%= @word.article_attempts %>" />
-    </div>
-
-    <div class="form-group">
-        <label>Article Mistakes</label>
-        <input type="text" class="form-control" value="<%= @word.article_mistakes %>" />
-    </div>
-
-    <div class="form-group">
-        <label>Article Consecutive Correct Answers</label>
-        <input type="text" class="form-control" value="<%= @word.article_consecutive_correct_answers %>" />
-    </div>
-<% end %>
 
 <% link = params[:article].present? ? learn_articles_words_path : learn_words_path(translation: params[:translation], smart_mode: params[:smart_mode] == "true") %>
 <%= link_to 'Continue', link, class: 'btn btn-info' %>
