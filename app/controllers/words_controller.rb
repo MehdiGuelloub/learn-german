@@ -3,8 +3,8 @@ class WordsController < ApplicationController
 
     def index
         @words = Word.all
-        @words = @words.search(params[:search_term]) if params[:search_term].present?
         @words = @words.where(learned: params[:only_show_learned] == "true")
+        @words = @words.search(params[:search_term]) if params[:search_term].present?
         @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak]
         @words = @words.page(params[:page]).per(per_page)
     end
@@ -36,7 +36,7 @@ class WordsController < ApplicationController
     end
 
     def learn
-        words = Word.where(learned: false).order(Arel.sql('RANDOM()'))
+        words = Word.where(learned: params[:learned_only] == "true").order(Arel.sql('RANDOM()'))
 
         if params[:smart_mode] == "true"
             words = words
