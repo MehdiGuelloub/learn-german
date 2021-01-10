@@ -1,2 +1,0 @@
-class Adjective < Term
-end

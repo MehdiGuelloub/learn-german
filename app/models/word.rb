@@ -8,6 +8,14 @@ class Word < ApplicationRecord
         'das' => 3,
     }, _prefix: true
 
+    enum word_type: {
+        'none' => 0,
+        'verb' => 1,
+        'noun' => 2,
+        'adjective' => 3,
+        'other' => 4,
+    }, _prefix: true
+
     validate :example_includes_keyword, :on => :create
 
     scope :most_attempted, -> { where(attempts: maximum(:attempts)) }

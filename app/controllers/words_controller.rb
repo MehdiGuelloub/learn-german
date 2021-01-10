@@ -1,5 +1,6 @@
 class WordsController < ApplicationController
-    before_action :set_word, only: %i(edit update destroy verify migrate)
+    before_action :set_word, only: %i(edit update destroy verify)
+    skip_before_action :verify_authenticity_token
 
     def index
         @words = Word.all
@@ -28,8 +29,14 @@ class WordsController < ApplicationController
 
     def update
         if @word.update(word_params)
-            flash[:notice] = "Word updated successfully"
-            redirect_to word_params.include?(:learned) ? learn_words_path : words_path
+            respond_to do |format|
+                format.html do
+                    flash[:notice] = "Word updated successfully"
+                    redirect_to word_params.include?(:word_type) || word_params.include?(:learned) ? learn_words_path : words_path
+                  end
+
+                  format.js { render }
+            end
         else
             render :edit
         end
@@ -101,15 +108,10 @@ class WordsController < ApplicationController
         redirect_to words_path
     end
 
-    def migrate
-        params[:type] ||= "Noun" unless @word.article_none?
-        @term = Term.new
-    end
-
     private
 
     def word_params
-        params.require(:word).permit(:word, :article, :meaning, :notes, :example, :keyword, :learned)
+        params.require(:word).permit(:word, :article, :meaning, :notes, :example, :keyword, :learned, :word_type)
     end
 
     def set_word
@@ -121,7 +123,7 @@ class WordsController < ApplicationController
         practice.increment(:number_of_practiced_words_per_day)
         practice.save!
     end
-    
+
     def increment_daily_mistakes
         practice = Practice.find_or_initialize_by(date: Date.today)
         practice.increment(:number_of_mistakes_per_day)

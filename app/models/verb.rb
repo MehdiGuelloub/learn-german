@@ -1,2 +1,0 @@
-class Verb < Term
-end

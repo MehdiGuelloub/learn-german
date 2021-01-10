@@ -52,3 +52,13 @@
         <%= link_to 'LEARNED!', word_path(@word, word: {learned: true}), method: :put, class: 'btn btn-warning', data: {confirm: "Mark as learned?"} %>
     <% end %>
 <% end %>
+
+<%# TODO: Remove %>
+<% if @word.word_type_none? %>
+    <div class="pt-5">
+        <%= form_for @word, remote: true, html: { id: "word_type_form" } do |f| %>
+            <%= f.select :word_type, options_for_select(Word.word_types.map { |key, value| [key, key] }, @word.word_type) %>
+            <%= f.submit 'Update', class: 'btn btn-primary btn-sm' %>
+        <% end %>
+    </div>
+<% end %>
