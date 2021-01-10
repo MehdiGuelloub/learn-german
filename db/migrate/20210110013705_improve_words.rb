@@ -17,7 +17,5 @@ class ImproveWords < ActiveRecord::Migration[6.0]
     end
     drop_table :terms do |t|
     end
-    drop_table :meanings do |t|
-    end
   end
 end
