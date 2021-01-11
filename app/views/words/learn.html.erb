@@ -1,72 +1,84 @@
 <h1 class="text-center p-5"><%= @word.consecutive_correct_answers %></h1>
 
-<%= form_tag verify_word_path(@word), method: :get do %>
-    <%= hidden_field_tag :translation, params[:translation] %>
-    <%= hidden_field_tag :smart_mode, params[:smart_mode] %>
+<div class="card m-3">
+    <div class="card-body">
+        <%= form_tag verify_word_path(@word), method: :get do %>
+            <%= hidden_field_tag :translation, params[:translation] %>
+            <%= hidden_field_tag :smart_mode, params[:smart_mode] %>
 
-    <div id="accordion">
-        <div class='form-group'>
-            <%= label_tag :example, nil, data: {toggle: "collapse", target: "#collapseOne"}, aria: {expanded: true, controls: "collapseOne"} %>
-            <div id="collapseOne" class='<%= "collapse #{"show" if @translation == :de_en}"%>'>
-                <div class="form-control h-auto p-3">
-                    <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') if @word.example.present? && @word.keyword.present? %>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="accordion">
-        <div class='form-group'>
-            <%= label_tag :word, nil, data: {toggle: "collapse", target: "#collapseTwo"}, aria: {expanded: true, controls: "collapseTwo"} %>
-            <div id="collapseTwo" class='<%= "collapse #{"show" if @word.example.blank? || @translation == :en_de}"%>'>
-                <div class="input-group mb-3">
-                    <% unless @word.article_none? %>
-                        <div class="input-group-prepend">
-                            <span class='input-group-text <%= article_color(@word) %>' id="basic-addon1"><%= @word.article %></span>
+            <div id="accordion">
+                <div class='form-group'>
+                    <%= label_tag :example, nil, data: {toggle: "collapse", target: "#collapseOne"}, aria: {expanded: true, controls: "collapseOne"} %>
+                    <div id="collapseOne" class='<%= "collapse #{"show" if @translation == :de_en}"%>'>
+                        <div class="form-control h-auto p-3">
+                            <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u>\1</u>') if @word.example.present? && @word.keyword.present? %>
                         </div>
-                    <% end %>
-                    <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div id="accordion">
-        <div class='form-group'>
-            <%= label_tag :notes, nil, data: {toggle: "collapse", target: "#collapseThree"}, aria: {expanded: true, controls: "collapseThree"} %>
-            <div id="collapseThree" class="collapse">
-                <div class="card card-body">
-                    <%= @word.notes %>
+            <div id="accordion">
+                <div class='form-group'>
+                    <%= label_tag :word, nil, data: {toggle: "collapse", target: "#collapseTwo"}, aria: {expanded: true, controls: "collapseTwo"} %>
+                    <div id="collapseTwo" class='<%= "collapse #{"show" if @word.example.blank? || @translation == :en_de}"%>'>
+                        <div class="input-group mb-3">
+                            <% unless @word.article_none? %>
+                                <div class="input-group-prepend">
+                                    <span class='input-group-text <%= article_color(@word) %>' id="basic-addon1"><%= @word.article %></span>
+                                </div>
+                            <% end %>
+                            <%= text_field_tag :word, @translation == :de_en ? @word.word : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :en_de %>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class='form-group'>
-        <%= label_tag :meaning %>
-        <%= text_field_tag :meaning, @translation == :en_de ? @word.meaning : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :de_en %>
-        <small id="notoverbs" class="form-text text-muted">You don't need to prefix verbs with "to" </small>
+            <div id="accordion">
+                <div class='form-group'>
+                    <%= label_tag :notes, nil, data: {toggle: "collapse", target: "#collapseThree"}, aria: {expanded: true, controls: "collapseThree"} %>
+                    <div id="collapseThree" class="collapse">
+                        <div class="card card-body">
+                            <%= @word.notes %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <%= label_tag :meaning %>
+                <%= text_field_tag :meaning, @translation == :en_de ? @word.meaning : '', class: 'form-control', required: true, autocomplete: 'off', autofocus: @translation == :de_en %>
+                <small id="notoverbs" class="form-text text-muted">You don't need to prefix verbs with "to" </small>
+            </div>
+            <%= submit_tag 'Verify', class: 'btn btn-info' %>
+        <% end %>
     </div>
-    <%= submit_tag 'Verify', class: 'btn btn-info' %>
-<% end %>
+</div>
 
 <% if @word.updated_at > 3.day.ago && @word.consecutive_correct_answers > 3 && !@word.learned %>
-    <%= button_to 'LEARNED!',
-        word_path(@word, word: {learned: true}),
-        method: :put,
-        remote: true,
-        class: 'btn btn-warning',
-        form: { id: "learned_form" },
-        data: {confirm: "Mark as learned?"}
-    %>
+    <div class="card m-3">
+        <div class="card-body">
+            <%= button_to 'LEARNED!',
+                word_path(@word, word: {learned: true}),
+                method: :put,
+                remote: true,
+                class: 'btn btn-warning',
+                form: { id: "learned_form" },
+                data: {confirm: "Mark as learned?"}
+            %>
+        </div>
+    </div>
 <% end %>
 
 <%# TODO: Remove %>
 <% if @word.word_type_none? %>
-    <div class="pt-5">
-        <%= form_for @word, remote: true, html: { id: "word_type_form" } do |f| %>
-            <%= f.select :word_type, options_for_select(Word.word_types.map { |key, value| [key, key] }, @word.word_type) %>
-            <%= f.submit 'Update', class: 'btn btn-primary btn-sm' %>
-        <% end %>
+    <div class="card m-3">
+        <div class="card-body">
+            <%= form_for @word, remote: true, html: { id: "word_type_form" } do |f| %>
+                <div class="form-group">
+                    <%= f.select :word_type, options_for_select(Word.word_types.map { |key, value| [key, key] }, @word.word_type), {}, class: "form-control" %>
+                </div>
+                <%= f.submit 'Update', class: 'btn btn-primary btn-sm' %>
+            <% end %>
+        </div>
     </div>
 <% end %>
