@@ -1,1 +1,7 @@
-$("#word_type_form").hide()
+<% if @word.learned %>
+  $("#learned_form").hide()
+<% end %>
+
+<% unless @word.word_type_none? %>
+  $("#word_type_form").hide()
+<% end %>

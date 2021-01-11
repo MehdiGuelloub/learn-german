@@ -32,7 +32,7 @@ class WordsController < ApplicationController
             respond_to do |format|
                 format.html do
                     flash[:notice] = "Word updated successfully"
-                    redirect_to word_params.include?(:word_type) || word_params.include?(:learned) ? learn_words_path : words_path
+                    redirect_to words_path
                   end
 
                   format.js { render }
