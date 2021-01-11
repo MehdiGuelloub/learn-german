@@ -53,13 +53,13 @@ class Word < ApplicationRecord
         forms << plural
         forms << comparative
         forms << superlative
-        forms.map(&:downcase)
+        forms.compact.map(&:downcase)
     end
 
     def accepted_forms_for_meaning
         meanings = [meaning]
         meanings.concat meaning_forms.split(', ') if meaning_forms.present?
-        meanings.map(&:downcase)
+        meanings.compact.map(&:downcase)
     end
 
     private
