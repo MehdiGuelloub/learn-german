@@ -1,46 +1,63 @@
-<ul class="list-group pb-3">
-    <li class="list-group-item">
-        <span><%= "You have #{Word.select(:word).distinct.count} words in total" %></span>
-    </li>
-    <li class="list-group-item">
-        <span><%= "Your mistakes rate is: " %></span>
-        <strong class="text-danger"><%= "#{number_to_percentage(Word.mistak_by_attempts, precision: 0)}" %></strong>
-        <small class="text-danger"><%= "(#{Word.total_mistakes}/#{Word.total_attempts})" %></small>
-    </li>
-    <li class="list-group-item">
-        <span><%= "You have #{Word.mistaken.count} mistaken words in total" %></span>
-    </li>
-    <li class="list-group-item">
-        <span><%= "You have #{Word.learned.count} learned words" %></span>
-    </li>
-    <li class="list-group-item">
-        <span><%= link_to 'Go to added words history', history_words_path %></span>
-    </li>
-    <li class="list-group-item">
-        <span><%= link_to 'Go to practice history', practices_path %></span>
-    </li>
-    <li class="list-group-item bg-danger">
-        <span><%= "#{Word.where(:word_type => Word.word_types[:none]).count} Words without type" %></span>
-    </li>
-</ul>
-
-<%= form_tag words_path, method: :get do %>
-    <div class="input-group mb-3">
-        <%= hidden_field_tag :only_show_learned, params[:only_show_learned], id: 'only_show_learned_hidden' %>
-        <%= text_field_tag :search_term, params[:search_term] %>
-            <div class="input-group-append">
-                <%= submit_tag 'search', class: "input-group-text", id: "basic-addon2" %>
+<div class="row mb-3">
+    <div class="col">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span><%= "You have #{Word.select(:word).distinct.count} words in total" %></span>
+            </li>
+            <li class="list-group-item">
+                <span><%= "Your mistakes rate is: " %></span>
+                <strong class="text-danger"><%= "#{number_to_percentage(Word.mistak_by_attempts, precision: 0)}" %></strong>
+                <small class="text-danger"><%= "(#{Word.total_mistakes}/#{Word.total_attempts})" %></small>
+            </li>
+            <li class="list-group-item">
+                <span><%= "You have #{Word.mistaken.count} mistaken words in total" %></span>
+            </li>
+            <li class="list-group-item">
+                <span><%= "You have #{Word.learned.count} learned words" %></span>
+            </li>
+            <li class="list-group-item">
+                <span><%= link_to 'Go to added words history', history_words_path %></span>
+            </li>
+            <li class="list-group-item">
+                <span><%= link_to 'Go to practice history', practices_path %></span>
+            </li>
+            <li class="list-group-item">
+                <span class="text-danger">
+                    <%= "#{Word.where(:word_type => Word.word_types[:none]).count} Words without type" %>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <%= form_tag words_path, method: :get do %>
+            <div class="card p-3">
+                <div class="form-group">
+                    <%= text_field_tag :search_term, params[:search_term], class: 'form-control', placeholder: 'Type a word or meaning...' %>
+                </div>
+                <div class="form-group">
+                    <%= select_tag :learned_status,
+                        options_for_select(Word.learned_statuses.map { |key, value| [key.humanize, key] }, params[:learned_status]),
+                        { class: 'form-control', include_blank: "Pick a learned status..." }
+                    %>
+                </div>
+                <div class="form-group">
+                    <%= select_tag :word_type,
+                        options_for_select(Word.word_types.map { |key, value| [key, key] }, params[:word_type]),
+                        { class: 'form-control', include_blank: "Select a word type..." }
+                    %>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <%= submit_tag 'Filter', class: "btn btn-block btn-info" %>
+                    </div>
+                    <div class="col">
+                        <%= link_to 'Reset', words_path, class: "btn btn-block btn-outline-info" %>
+                    </div>
+                </div>
             </div>
+        <% end %>
     </div>
-<% end %>
-
-<%= form_tag words_path, method: :get do %>
-    <div class="mb-3">
-        <%= hidden_field_tag :search_term, params[:search_term], id: 'search_term_hidden' %>
-        <%= check_box_tag :only_show_learned, "true", params[:only_show_learned] == "true", onchange: "this.form.submit()" %>
-        <%= label_tag :only_show_learned, nil, class: "form-check-label" %>
-    </div>
-<% end %>
+</div>
 
 <table class="table small">
     <thead class="thead-dark">

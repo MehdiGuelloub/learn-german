@@ -16,6 +16,12 @@ class Word < ApplicationRecord
         'other' => 4,
     }, _prefix: true
 
+    enum learned_status: {
+        'to_learn' => 0,
+        'learned' => 1,
+        'golden_list' => 2,
+    }, _prefix: true
+
     validate :example_includes_keyword, :on => :create
 
     scope :most_attempted, -> { where(attempts: maximum(:attempts)) }
@@ -26,6 +32,14 @@ class Word < ApplicationRecord
     scope :total_attempts, -> { sum(:attempts) }
     scope :total_mistakes, -> { sum(:mistakes) }
     scope :mistak_by_attempts, -> { sum(:mistakes).to_f / sum(:attempts).to_f * 100 }
+    scope :filter_by_learned_status, -> (status) do
+        case status
+        when 'to_learn'
+            where(learned: false)
+        when 'learned' 
+            learned
+        end
+    end
 
     def other_meanings
         Word.where(word: word).where.not(id: id)

@@ -3,10 +3,13 @@ class WordsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def index
+        params[:learned_status] ||= "to_learn"
+
         @words = Word.all
-        @words = @words.where(learned: params[:only_show_learned] == "true")
         @words = @words.search(params[:search_term]) if params[:search_term].present?
-        @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak]
+        @words = @words.filter_by_learned_status(params[:learned_status]) if params[:learned_status].present?
+        @words = @words.where(word_type: params[:word_type]) if params[:word_type].present?
+        @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak].present?
         @words = @words.page(params[:page]).per(per_page)
     end
 
