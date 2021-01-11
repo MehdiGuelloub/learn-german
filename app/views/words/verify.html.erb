@@ -32,7 +32,7 @@
 
 <div class="form-group">
     <label>Example</label>
-    <input type="text" class="form-control" value="<%= @word.example %>" />
+    <textarea type="text" class="form-control"><%= @word.example %></textarea>
 </div>
 
 <% link = params[:article].present? ? learn_articles_words_path : learn_words_path(translation: params[:translation], smart_mode: params[:smart_mode] == "true") %>
