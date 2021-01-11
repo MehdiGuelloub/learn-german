@@ -85,7 +85,7 @@ class WordsController < ApplicationController
         # Learning words
         if params[:word].present? && params[:meaning].present?
             increment_daily_practice
-            if @word.word.downcase == params[:word].downcase && @word.meaning.downcase == params[:meaning].downcase
+            if @word.accepted_forms_for_word.include?(params[:word].downcase) && @word.accepted_forms_for_meaning.include?(params[:meaning].downcase)
                 @word.update(
                     :attempts => @word.attempts + 1,
                     :consecutive_correct_answers => @word.consecutive_correct_answers + 1
@@ -111,7 +111,24 @@ class WordsController < ApplicationController
     private
 
     def word_params
-        params.require(:word).permit(:word, :article, :meaning, :notes, :example, :keyword, :learned, :word_type)
+        params
+            .require(:word)
+            .permit(
+                :word_type,
+                :article,
+                :word,
+                :example,
+                :keyword,
+                :meaning,
+                :notes,
+                :perfect,
+                :praeteritum,
+                :plural,
+                :comparative,
+                :superlative,
+                :meaning_forms,
+                :learned
+            )
     end
 
     def set_word

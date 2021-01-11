@@ -31,8 +31,25 @@ class Word < ApplicationRecord
         Word.where(word: word).where.not(id: id)
     end
 
+    def accepted_forms_for_word
+        forms = []
+        forms << word
+        forms << perfect
+        forms << praeteritum
+        forms << plural
+        forms << comparative
+        forms << superlative
+        forms.map(&:downcase)
+    end
+
+    def accepted_forms_for_meaning
+        meanings = [meaning]
+        meanings.concat meaning_forms.split(', ') if meaning_forms.present?
+        meanings.map(&:downcase)
+    end
+
     private
-  
+
     def example_includes_keyword
       keyword_parts = keyword.split(', ')
       unless keyword_parts.all?{|part| example.include? part}
