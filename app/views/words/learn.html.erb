@@ -1,4 +1,12 @@
-<h1 class="text-center p-5"><%= @word.consecutive_correct_answers %></h1>
+<div class="text-center">
+    <h1><span class="badge badge-secondary"><%= @word.consecutive_correct_answers %></span></h1>
+    <% current_practices = Practice.find_by(date: Date.today)&.number_of_practiced_words_per_day.presence || 0  %>
+    <h1>
+        <span class='<%= "badge badge-#{current_practices > 100 ? "success" : "danger"}" %>'>
+            <%= current_practices %>
+        </span>
+    </h1>
+</div>
 
 <div class="card m-3">
     <div class="card-body">
