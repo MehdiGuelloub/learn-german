@@ -1,5 +1,5 @@
 <div class="row mb-3">
-    <div class="col">
+    <div class="col-md-6">
         <ul class="list-group">
             <li class="list-group-item">
                 <span><%= "You have #{Word.select(:word).distinct.count} words in total" %></span>
@@ -28,7 +28,7 @@
             </li>
         </ul>
     </div>
-    <div class="col">
+    <div class="col-md-6">
         <%= form_tag words_path, method: :get do %>
             <div class="card p-3">
                 <div class="form-group">
