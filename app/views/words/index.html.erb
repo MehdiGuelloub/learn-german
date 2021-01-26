@@ -21,11 +21,6 @@
             <li class="list-group-item">
                 <span><%= link_to 'Go to practice history', practices_path %></span>
             </li>
-            <li class="list-group-item">
-                <span class="text-danger">
-                    <%= "#{Word.where(:word_type => Word.word_types[:none]).count} Words without type" %>
-                </span>
-            </li>
         </ul>
     </div>
     <div class="col-md-6">
@@ -79,8 +74,8 @@
                 <% if word.attempts == 0 %>
                   <span class="badge badge-pill badge-success ml-2">New</span>
                 <% end %>
-                <% if word.word_type_none? %>
-                  <span class="badge badge-pill badge-danger ml-2">Missing Type</span>
+                <% if word.example.blank? %>
+                  <span class="badge badge-pill badge-danger ml-2">Eg.</span>
                 <% end %>
             </td>
             <td><%= word.meaning %></td>

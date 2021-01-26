@@ -41,16 +41,18 @@
                 </div>
             </div>
 
-            <div id="accordion">
-                <div class='form-group'>
-                    <%= label_tag :notes, nil, data: {toggle: "collapse", target: "#collapseThree"}, aria: {expanded: true, controls: "collapseThree"} %>
-                    <div id="collapseThree" class="collapse">
-                        <div class="card card-body">
-                            <%= @word.notes %>
+            <% if @word.notes.present? %>
+                <div id="accordion">
+                    <div class='form-group'>
+                        <%= label_tag :notes, nil, data: {toggle: "collapse", target: "#collapseThree"}, aria: {expanded: true, controls: "collapseThree"} %>
+                        <div id="collapseThree" class="collapse">
+                            <div class="card card-body">
+                                <%= @word.notes %>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <% end %>
 
             <div class='form-group'>
                 <%= label_tag :meaning %>
@@ -73,20 +75,6 @@
                 form: { id: "learned_form" },
                 data: {confirm: "Mark as learned?"}
             %>
-        </div>
-    </div>
-<% end %>
-
-<%# TODO: Remove %>
-<% if @word.word_type_none? %>
-    <div class="card m-3">
-        <div class="card-body">
-            <%= form_for @word, remote: true, html: { id: "word_type_form" } do |f| %>
-                <div class="form-group">
-                    <%= f.select :word_type, options_for_select(Word.word_types.map { |key, value| [key, key] }, @word.word_type), {}, class: "form-control" %>
-                </div>
-                <%= f.submit 'Update', class: 'btn btn-primary btn-sm' %>
-            <% end %>
         </div>
     </div>
 <% end %>
