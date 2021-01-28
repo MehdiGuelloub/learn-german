@@ -64,6 +64,14 @@ class WordsController < ApplicationController
         @word = Word.where.not(:article => 0).order(Arel.sql('RANDOM()')).first
     end
 
+    def learn_verb_prepositions
+        @word = Word
+            .where(word_type: :verb)
+            .where.not(verb_preposition: nil)
+            .order(Arel.sql('RANDOM()'))
+            .first
+    end
+
     def history
         @word_count_groups = Word.order('DATE(created_at) DESC').group('DATE(created_at)').count
     end
@@ -72,17 +80,17 @@ class WordsController < ApplicationController
         # Learning articles
         if params[:article].present?
             if @word.article == params[:article]
-                @word.update(
-                    :article_attempts => @word.article_attempts + 1,
-                    :article_consecutive_correct_answers => @word.article_consecutive_correct_answers + 1
-                )
                 redirect_to learn_articles_words_path
             else
-                @word.update(
-                    :article_attempts => @word.article_attempts + 1,
-                    :article_mistakes => @word.article_mistakes + 1,
-                    :article_consecutive_correct_answers => 0
-                )
+                render :verify
+            end
+        end
+
+        # Learning prepositions
+        if params[:verb_preposition].present?
+            if @word.verb_preposition == params[:verb_preposition]
+                redirect_to learn_verb_prepositions_words_path
+            else
                 render :verify
             end
         end
@@ -132,7 +140,8 @@ class WordsController < ApplicationController
                 :comparative,
                 :superlative,
                 :meaning_forms,
-                :learned
+                :learned,
+                :verb_preposition,
             )
     end
 

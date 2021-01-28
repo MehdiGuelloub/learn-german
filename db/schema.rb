@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_133448) do
+ActiveRecord::Schema.define(version: 2021_01_28_135652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_133448) do
     t.string "comparative"
     t.string "superlative"
     t.string "meaning_forms"
+    t.integer "verb_preposition"
   end
 
 end

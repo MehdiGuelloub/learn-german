@@ -32,3 +32,98 @@
   padding: 10px;
   border: 1px solid lightgray;
  }
+
+.btn-an {
+  width: 200px;
+  background-color: #AFEEEE;
+}
+
+.btn-auf {
+  width: 200px;
+  background-color: #006400;
+}
+
+.btn-aus {
+  width: 200px;
+  background-color: #00CED1;
+}
+
+.btn-bei {
+  width: 200px;
+  background-color: #98FB98;
+}
+
+.btn-bis {
+  width: 200px;
+  background-color: #A0522D;
+}
+
+.btn-durch {
+  width: 200px;
+  background-color: #F4A460;
+}
+
+.btn-entlang {
+  width: 200px;
+  background-color: #A9A9A9;
+}
+
+.btn-für {
+  width: 200px;
+  background-color: #708090;
+}
+
+.btn-gegen {
+  width: 200px;
+  background-color: #FFF8DC;
+}
+
+.btn-hinter {
+  width: 200px;
+  background-color: #FF8C00;
+}
+
+.btn-in {
+  width: 200px;
+  background-color: #E0FFFF;
+}
+
+.btn-mit {
+  width: 200px;
+  background-color: #ADD8E6;
+}
+
+.btn-nach {
+  width: 200px;
+  background-color: #8B4513;
+}
+
+.btn-neben {
+  width: 200px;
+  background-color: #B0C4DE;
+}
+
+.btn-ohne {
+  width: 200px;
+  background-color: #8FBC8F;
+}
+
+.btn-seit {
+  width: 200px;
+  background-color: #FA8072;
+}
+
+.btn-um {
+  width: 200px;
+  background-color: #FF00FF;
+}
+
+.btn-von {
+  width: 200px;
+  background-color: #F0E68C;
+}
+
+.btn-zu {
+  width: 200px;
+  background-color: #6B8E23;
+}

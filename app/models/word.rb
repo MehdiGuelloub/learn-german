@@ -2,24 +2,47 @@ class Word < ApplicationRecord
     before_save :parse_words_and_meanings
 
     enum article: {
-        'none' => 0,
-        'der' => 1,
-        'die' => 2,
-        'das' => 3,
+        'none'  => 0,
+        'der'   => 1,
+        'die'   => 2,
+        'das'   => 3,
     }, _prefix: true
 
     enum word_type: {
-        'none' => 0,
-        'verb' => 1,
-        'noun' => 2,
+        # 'none' => 0,
+        'verb'      => 1,
+        'noun'      => 2,
         'adjective' => 3,
-        'other' => 4,
+        'other'     => 4,
     }, _prefix: true
 
     enum learned_status: {
-        'to_learn' => 0,
-        'learned' => 1,
-        'golden_list' => 2,
+        'to_learn'      => 0,
+        'learned'       => 1,
+        'golden_list'   => 2,
+        'not_to_learn'  => 3,
+    }, _prefix: true
+
+    enum verb_preposition: {
+        'an'      => 0,
+        'auf'     => 1,
+        'aus'     => 2,
+        'bei'     => 3,
+        'bis'     => 4,
+        'durch'   => 5,
+        'entlang' => 6,
+        'für'     => 7,
+        'gegen'   => 8,
+        'hinter'  => 9,
+        'in'      => 10,
+        'mit'     => 11,
+        'nach'    => 12,
+        'neben'   => 13,
+        'ohne'    => 14,
+        'seit'    => 15,
+        'um'      => 16,
+        'von'     => 17,
+        'zu'      => 18,
     }, _prefix: true
 
     validate :example_includes_keyword, :on => :create

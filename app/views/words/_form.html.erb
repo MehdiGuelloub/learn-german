@@ -31,6 +31,7 @@
     <%= f.text_field :plural %>
     <%= f.text_field :comparative %>
     <%= f.text_field :superlative %>
+    <%= f.select :verb_preposition, options_for_select(Word.verb_prepositions.map { |key, value| [key, key] }, word.new_record? ? nil : word.verb_preposition), {}, class: "form-control", required: true %>
 
     <%= f.submit class: 'btn btn-info col-sm-2' %>
 <% end %>

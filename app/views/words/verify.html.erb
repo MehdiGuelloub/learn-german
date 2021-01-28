@@ -35,5 +35,14 @@
     <textarea type="text" class="form-control"><%= @word.example %></textarea>
 </div>
 
-<% link = params[:article].present? ? learn_articles_words_path : learn_words_path(translation: params[:translation], smart_mode: params[:smart_mode] == "true") %>
+<%
+    link = case
+    when params[:article].present?
+        learn_articles_words_path
+    when params[:verb_preposition].present?
+        learn_verb_prepositions_words_path
+    else
+        learn_words_path(translation: params[:translation], smart_mode: params[:smart_mode] == "true")    
+    end
+%>
 <%= link_to 'Continue', link, class: 'btn btn-info' %>
