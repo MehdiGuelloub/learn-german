@@ -39,6 +39,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <%= link_to "Learn", learn_words_path, class: 'dropdown-item' %>
+                        <%= link_to "Once a day to keep the doctor away", learn_words_path(once_a_day: true), class: 'dropdown-item' %>
                         <%= link_to "Smart Learn", learn_words_path(smart_mode: true), class: 'dropdown-item' %>
                         <%= link_to "Practice Learned", learn_words_path(learned_only: true), class: 'dropdown-item' %>
                         <%= link_to "Learn articles", learn_articles_words_path, class: 'dropdown-item' %>

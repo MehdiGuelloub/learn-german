@@ -54,6 +54,8 @@ class WordsController < ApplicationController
                 .or(words.where('updated_at < ?', 10.day.ago.to_datetime))
         end
 
+        words = Word.where.not(updated_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).order(Arel.sql('RANDOM()')) if params[:once_a_day] == "true"
+
         @word = words.first
         @translation = params[:translation]&.to_sym.presence || [:de_en, :en_de].sample
     end
