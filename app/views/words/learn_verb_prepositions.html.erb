@@ -1,24 +1,31 @@
-<div class="d-flex justify-content-center">
-    <h1>
-        <%= @word.word %>
-    </h1>
-</div>
+<div class="row offset-sm-2 col-sm-8 justify-content-center">
+    <div class="d-flex">
+        <h1>
+            <%= @word.word %>
+        </h1>
+    </div>
 
-<% if false %>
-    <div class="p-5">
-        <%= form_tag verify_word_path(@word), method: :get do %>
-            <div class="input-group mb-3">
-                <%= text_field_tag :verb_preposition, nil, class: 'form-control' %>
-                <div class="input-group-append">
-                    <%= submit_tag 'Verify', class: "input-group-text" %>
+    <% if false %>
+        <div class="p-5">
+            <%= form_tag verify_word_path(@word), method: :get do %>
+                <div class="input-group mb-3">
+                    <%= text_field_tag :verb_preposition, nil, class: 'form-control' %>
+                    <div class="input-group-append">
+                        <%= submit_tag 'Verify', class: "input-group-text" %>
+                    </div>
                 </div>
-            </div>
+            <% end %>
+        </div>
+    <% end %>
+
+    <div class="form-control h-auto p-3">
+        <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u class="blur">\1</u>') if @word.example.present? && @word.keyword.present? %>
+    </div>
+
+    <div class="d-flex flex-wrap">
+        <% buttons_classes = ["btn-primary", "btn-secondary", "btn-success", "btn-danger", "btn-warning", "btn-info", "btn-light", "btn-dark"] %>
+        <% @prepositions_suggestions.each_with_index do |key, idx| %>
+            <%= link_to key, verify_word_path(@word, :verb_preposition => key), class: "btn btn-lg #{buttons_classes[idx]} m-1" %>
         <% end %>
     </div>
-<% end %>
-
-<div class="d-flex flex-wrap justify-content-center">
-    <% @prepositions_suggestions.map do |key| %>
-        <%= link_to key, verify_word_path(@word, :verb_preposition => key), class: "btn btn-lg btn-#{key} m-1" %>
-    <% end %>
 </div>

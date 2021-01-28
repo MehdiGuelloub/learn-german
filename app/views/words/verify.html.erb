@@ -35,6 +35,16 @@
     <textarea type="text" class="form-control"><%= @word.example %></textarea>
 </div>
 
+<div class="form-group">
+    <label>Preposition</label>
+    <input type="text" class="form-control" value="<%= @word.verb_preposition %>" />
+    <% if @word.word.downcase != params[:verb_preposition]&.downcase %>
+    <div class="text-danger" style="text-decoration: line-through">
+        <%= params[:verb_preposition] %>
+    </div>
+    <% end %>
+</div>
+
 <%
     link = case
     when params[:article].present?
