@@ -70,6 +70,10 @@ class WordsController < ApplicationController
             .where.not(verb_preposition: nil)
             .order(Arel.sql('RANDOM()'))
             .first
+
+        solution = [@word.verb_preposition]
+        suggestions_without_solution = Word.verb_prepositions.keys - solution
+        @prepositions_suggestions = suggestions_without_solution.sample(3).concat(solution).shuffle
     end
 
     def history

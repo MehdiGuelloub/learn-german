@@ -4,19 +4,21 @@
     </h1>
 </div>
 
-<div class="p-5">
-    <%= form_tag verify_word_path(@word), method: :get do %>
-        <div class="input-group mb-3">
-            <%= text_field_tag :verb_preposition, nil, class: 'form-control' %>
-            <div class="input-group-append">
-                <%= submit_tag 'Verify', class: "input-group-text" %>
+<% if false %>
+    <div class="p-5">
+        <%= form_tag verify_word_path(@word), method: :get do %>
+            <div class="input-group mb-3">
+                <%= text_field_tag :verb_preposition, nil, class: 'form-control' %>
+                <div class="input-group-append">
+                    <%= submit_tag 'Verify', class: "input-group-text" %>
+                </div>
             </div>
-        </div>
-    <% end %>
-</div>
+        <% end %>
+    </div>
+<% end %>
 
 <div class="d-flex flex-wrap justify-content-center">
-    <% Word.verb_prepositions.map do |key, value| %>
+    <% @prepositions_suggestions.map do |key| %>
         <%= link_to key, verify_word_path(@word, :verb_preposition => key), class: "btn btn-lg btn-#{key} m-1" %>
     <% end %>
 </div>
