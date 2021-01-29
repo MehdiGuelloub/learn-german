@@ -52,7 +52,7 @@
     when params[:verb_preposition].present?
         learn_verb_prepositions_words_path
     else
-        learn_words_path(translation: params[:translation], smart_mode: params[:smart_mode] == "true")    
+        learn_words_path(translation: params[:translation], smart_mode: params[:smart_mode] == "true", once_a_day: params[:once_a_day] == "true")
     end
 %>
 <%= link_to 'Continue', link, class: 'btn btn-info' %>

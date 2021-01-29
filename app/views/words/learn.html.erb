@@ -13,6 +13,7 @@
         <%= form_tag verify_word_path(@word), method: :get do %>
             <%= hidden_field_tag :translation, params[:translation] %>
             <%= hidden_field_tag :smart_mode, params[:smart_mode] %>
+            <%= hidden_field_tag :once_a_day, params[:once_a_day] %>
 
             <div id="accordion">
                 <div class='form-group'>

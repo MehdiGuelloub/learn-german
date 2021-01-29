@@ -3,6 +3,8 @@ class WordsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def index
+        params[:learned_status] ||= :to_learn_meaning
+
         @words = Word.all
         @words = @words.search(params[:search_term]) if params[:search_term].present?
         @words = @words.where(word_type: params[:word_type]) if params[:word_type].present?
