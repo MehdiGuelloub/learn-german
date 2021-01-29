@@ -16,12 +16,14 @@ class Word < ApplicationRecord
         'other'     => 4,
     }, _prefix: true
 
-    enum learned_status: {
-        'to_learn'      => 0,
-        'learned'       => 1,
-        'golden_list'   => 2,
-        'not_to_learn'  => 3,
-    }, _prefix: true
+    enum learned_status: [
+        :to_learn_meaning,
+        :to_learn_patizip,
+        :to_learn_preposition,
+        :meaning_learned,
+        :patizip_learned,
+        :preposition_learned,
+    ]
 
     enum verb_preposition: {
         'an'        => 0,
@@ -57,18 +59,10 @@ class Word < ApplicationRecord
     scope :never_attempted, -> { where(attempts: 0) }
     scope :search, -> (term) { where("word ILIKE ?", "%#{term}%").or(where("meaning ILIKE ?", "%#{term}%")) }
     scope :mistaken, -> { where.not(attempts: 0).where(consecutive_correct_answers: 0) }
-    scope :learned, -> { where(learned: true) }
     scope :total_attempts, -> { sum(:attempts) }
     scope :total_mistakes, -> { sum(:mistakes) }
     scope :mistak_by_attempts, -> { sum(:mistakes).to_f / sum(:attempts).to_f * 100 }
-    scope :filter_by_learned_status, -> (status) do
-        case status
-        when 'to_learn'
-            where(learned: false)
-        when 'learned' 
-            learned
-        end
-    end
+    scope :total, -> { select(:word).distinct }
 
     def other_meanings
         Word.where(word: word).where.not(id: id)

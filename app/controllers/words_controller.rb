@@ -3,12 +3,10 @@ class WordsController < ApplicationController
     skip_before_action :verify_authenticity_token
 
     def index
-        params[:learned_status] ||= "to_learn"
-
         @words = Word.all
         @words = @words.search(params[:search_term]) if params[:search_term].present?
-        @words = @words.filter_by_learned_status(params[:learned_status]) if params[:learned_status].present?
         @words = @words.where(word_type: params[:word_type]) if params[:word_type].present?
+        @words = @words.send(params[:learned_status]) if params[:learned_status].present?
         @words = @words.order("consecutive_correct_answers #{params[:direction]}") if params[:sort_by_streak].present?
         @words = @words.page(params[:page]).per(per_page)
     end
@@ -46,16 +44,10 @@ class WordsController < ApplicationController
     end
 
     def learn
-        words = Word.where(learned: params[:learned_only] == "true").order(Arel.sql('RANDOM()'))
-
-        if params[:smart_mode] == "true"
-            words = words
-                .where("consecutive_correct_answers < ?", 10)
-                .or(words.where('updated_at < ?', 10.day.ago.to_datetime))
-        end
-
-        words = Word.where.not(updated_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).order(Arel.sql('RANDOM()')) if params[:once_a_day] == "true"
-
+        words = Word.order(Arel.sql('RANDOM()'))
+        words = params[:practice_learned] == "true" ? words.meaning_learned : words.to_learn_meaning
+        words = words.where("consecutive_correct_answers < ?", 10).or(words.where('updated_at < ?', 10.day.ago.to_datetime)) if params[:smart_mode] == "true"
+        words = words.where.not(updated_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) if params[:once_a_day] == "true"
         @word = words.first
         @translation = params[:translation]&.to_sym.presence || [:de_en, :en_de].sample
     end
@@ -65,12 +57,7 @@ class WordsController < ApplicationController
     end
 
     def learn_verb_prepositions
-        @word = Word
-            .where(word_type: :verb)
-            .where.not(verb_preposition: nil)
-            .order(Arel.sql('RANDOM()'))
-            .first
-
+        @word = Word.to_learn_preposition.order(Arel.sql('RANDOM()')).first
         solution = [@word.verb_preposition]
         suggestions_without_solution = Word.verb_prepositions.keys - solution
         @prepositions_suggestions = suggestions_without_solution.sample(3).concat(solution).shuffle
@@ -144,7 +131,7 @@ class WordsController < ApplicationController
                 :comparative,
                 :superlative,
                 :meaning_forms,
-                :learned,
+                :learned_status,
                 :verb_preposition,
             )
     end

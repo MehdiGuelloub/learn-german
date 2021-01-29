@@ -2,7 +2,7 @@
     <div class="col-md-6">
         <ul class="list-group">
             <li class="list-group-item">
-                <span><%= "You have #{Word.select(:word).distinct.count} words in total" %></span>
+                <span><%= "You have #{Word.total.count} words in total" %></span>
             </li>
             <li class="list-group-item">
                 <span><%= "Your mistakes rate is: " %></span>
@@ -13,7 +13,7 @@
                 <span><%= "You have #{Word.mistaken.count} mistaken words in total" %></span>
             </li>
             <li class="list-group-item">
-                <span><%= "You have #{Word.learned.count} learned words" %></span>
+                <span><%= "You have #{Word.total.to_learn_meaning.count} learned words" %></span>
             </li>
             <li class="list-group-item">
                 <span><%= link_to 'Go to added words history', history_words_path %></span>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <%= select_tag :word_type,
-                        options_for_select(Word.word_types.map { |key, value| [key, key] }, params[:word_type]),
+                        options_for_select(Word.word_types.map { |key, value| [key.humanize, key] }, params[:word_type]),
                         { class: 'form-control', include_blank: "Select a word type..." }
                     %>
                 </div>

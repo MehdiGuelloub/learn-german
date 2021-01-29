@@ -1,6 +1,3 @@
 <h5 class="mb-5">Edit <%= @word.word%></h5>
 <%= render 'form', word: @word %>
 <%= button_to "Delete", word_path(@word), method: :delete, class: "btn btn-danger mt-3 col-sm-2" %>
-<% unless @word.learned %>
-  <%= link_to 'LEARNED!', word_path(@word, word: {learned: true}), method: :put, class: 'btn btn-outline-danger mt-3 col-sm-2', data: {confirm: "Mark as learned?"} %>
-<% end %>

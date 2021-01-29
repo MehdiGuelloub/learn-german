@@ -64,17 +64,15 @@
     </div>
 </div>
 
-<% if @word.updated_at > 3.day.ago && @word.consecutive_correct_answers > 3 && !@word.learned %>
-    <div class="card m-3">
-        <div class="card-body">
-            <%= button_to 'LEARNED!',
-                word_path(@word, word: {learned: true}),
-                method: :put,
-                remote: true,
-                class: 'btn btn-outline-danger',
-                form: { id: "learned_form" },
-                data: {confirm: "Mark as learned?"}
-            %>
-        </div>
+<div class="card m-3">
+    <div class="card-body">
+        <%= button_to 'LEARNED!',
+            word_path(@word, word: {learned_status: :meaning_learned}),
+            method: :put,
+            remote: true,
+            class: 'btn btn-outline-danger',
+            form: { id: "learned_form" },
+            data: {confirm: "Mark as learned?"}
+        %>
     </div>
-<% end %>
+</div>

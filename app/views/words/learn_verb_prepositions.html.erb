@@ -19,7 +19,7 @@
     <% end %>
 
     <div class="form-control h-auto p-3">
-        <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u class="blur">\1</u>') if @word.example.present? && @word.keyword.present? %>
+        <%= highlight(@word.example, @word.keyword.split(', '), highlighter: '<u class="blur">abc</u>') if @word.example.present? && @word.keyword.present? %>
     </div>
 
     <div class="d-flex flex-wrap">

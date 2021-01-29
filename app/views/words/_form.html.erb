@@ -14,8 +14,8 @@
         </div>
     <% end %>
 
-    <%= f.select :word_type, options_for_select(Word.word_types.map { |key, value| [key, key] }, word.new_record? ? nil : word.word_type), {}, class: "form-control", required: true %>
-    <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key, key] }, word.new_record? ? nil : word.article), { include_blank: true }, class: "form-control", required: true %>
+    <%= f.select :word_type, options_for_select(Word.word_types.map { |key, value| [key.humanize, key] }, word.new_record? ? nil : word.word_type), {}, class: "form-control", required: true %>
+    <%= f.select :article, options_for_select(Word.articles.map { |key, value| [key.humanize, key] }, word.new_record? ? nil : word.article), { include_blank: true }, class: "form-control", required: true %>
     <div class="offset-sm-4 col-sm-8">
         <a href class="small text-info" id="search">Search</a>
         <a href class="small text-secondary" id="check">Check</a>
@@ -31,7 +31,8 @@
     <%= f.text_field :plural %>
     <%= f.text_field :comparative %>
     <%= f.text_field :superlative %>
-    <%= f.select :verb_preposition, options_for_select(Word.verb_prepositions.map { |key, value| [key, key] }, word.new_record? ? nil : word.verb_preposition), {}, class: "form-control" %>
+    <%= f.select :verb_preposition, options_for_select(Word.verb_prepositions.map { |key, value| [key, key] }, word.new_record? ? nil : word.verb_preposition), {include_blank: true}, class: "form-control" %>
+    <%= f.select :learned_status, options_for_select(Word.learned_statuses.map { |key, value| [key.humanize, key] }, word.new_record? ? nil : word.learned_status), {include_blank: true}, class: "form-control" %>
 
     <%= f.submit class: 'btn btn-info col-sm-2' %>
 <% end %>
