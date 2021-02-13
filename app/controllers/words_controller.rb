@@ -65,10 +65,6 @@ class WordsController < ApplicationController
         @prepositions_suggestions = suggestions_without_solution.sample(3).concat(solution).shuffle
     end
 
-    def history
-        @word_count_groups = Word.order('DATE(created_at) DESC').group('DATE(created_at)').count
-    end
-
     def verify
         # Learning articles
         if params[:article].present?

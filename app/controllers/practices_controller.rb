@@ -8,5 +8,7 @@ class PracticesController < ApplicationController
 			.where(date: @current_date.beginning_of_month..@current_date.end_of_month)
 			.order(date: :DESC)
 			.index_by(&:date)
+
+		@added_words_per_day = Word.order('DATE(created_at) DESC').group('DATE(created_at)').count
 	end
 end
