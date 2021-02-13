@@ -1,11 +1,40 @@
 <h3 class="pb-5">Attempts/day history:</h1>
 
-<ul class="list-group pb-3">
-    <% @practices.each do |practice| %>
-        <li class="list-group-item">
-            <strong><%= "#{practice.date}: " %></strong>
-            <span><%= "#{practice.number_of_practiced_words_per_day} word(s) practiced" %></span>
-            <span class="text-danger"><%= "#{practice.number_of_mistakes_per_day} mistake(s)" %></span>
-        </li>
-    <% end %>
-</ul>
+<div class="calendar-container">
+    <div class="calendar-header position-relative">
+        <% previous_month =  @current_date - 1.month %>
+        <%= link_to practices_path(month: previous_month.month, year: previous_month.year), class: 'position-absolute top-left-corner' do %>
+            <i class="fa fa-arrow-left"></i>
+        <% end %>
+
+        <% next_month =  @current_date + 1.month %>
+        <%= link_to practices_path(month: next_month.month, year: next_month.year), class: 'position-absolute top-right-corner' do %>
+            <i class="fa fa-arrow-right"></i>
+        <% end %>
+
+        <h1><%= Date::MONTHNAMES[params[:month].to_i] %></h1>
+        <p><%= params[:year] %></p>
+    </div>
+    <div class="calendar">
+        <% Date::DAYNAMES.each do |day_name| %>
+            <span class="day-name">
+                <%= day_name %>
+            </span>
+        <% end %>
+        <% @month_days.each do |day| %>
+            <div class="day">
+                <%= day.day %>
+                <% if practice = @indexed_practices[day] %>
+                    <h5 class="text-left">
+                        <div class='<%= "badge badge-#{practice.number_of_practiced_words_per_day > 100 ? "success" : "secondary"}" %>'>
+                            <%= practice.number_of_practiced_words_per_day %>
+                        </div>
+                    </h5>
+                    <div class="text-danger text-left">
+                        <strong><%= "#{practice.number_of_mistakes_per_day} mistake(s)" %></strong>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>
