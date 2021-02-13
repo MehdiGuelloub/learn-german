@@ -32,7 +32,7 @@
     <%= f.text_field :comparative %>
     <%= f.text_field :superlative %>
     <%= f.select :verb_preposition, options_for_select(Word.verb_prepositions.map { |key, value| [key, key] }, word.new_record? ? nil : word.verb_preposition), {include_blank: true}, class: "form-control" %>
-    <%= f.select :learned_status, options_for_select(Word.learned_statuses.map { |key, value| [key.humanize, key] }, word.new_record? ? nil : word.learned_status), {include_blank: true}, class: "form-control" %>
+    <%= f.select :learned_status, options_for_select(Word.learned_statuses.map { |key, value| [key.humanize, key] }, word.new_record? ? :to_learn_meaning : word.learned_status), {include_blank: true}, class: "form-control", required: true %>
 
     <%= f.submit class: 'btn btn-info col-sm-2' %>
 <% end %>
