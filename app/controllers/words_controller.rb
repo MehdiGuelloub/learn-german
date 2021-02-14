@@ -87,7 +87,7 @@ class WordsController < ApplicationController
         # Learning words
         if params[:word].present? && params[:meaning].present?
             increment_daily_practice
-            if @word.accepted_forms_for_word.include?(params[:word].downcase) && @word.accepted_forms_for_meaning.include?(params[:meaning].downcase)
+            if @word.accepted_forms_for_word.include?(params[:word].strip.downcase) && @word.accepted_forms_for_meaning.include?(params[:meaning].strip.downcase)
                 @word.update(
                     :attempts => @word.attempts + 1,
                     :consecutive_correct_answers => @word.consecutive_correct_answers + 1
