@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'words#learn'
+  root 'words#learn', once_a_day: 'true'
 
   resources :practices, only: :index
   resources :words do
